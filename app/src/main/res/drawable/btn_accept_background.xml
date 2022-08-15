@@ -1,0 +1,6 @@
+
+<shape android:shape="rectangle"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+            <solid android:color="@color/colorWhatsapp"/>
+            <corners android:radius="40dp"/>
+        </shape>

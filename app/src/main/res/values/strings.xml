@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">MobileEDispoNew</string>
+    <string name="surat_undangan_menu">Surat Undangan</string>
+    <string name="button_menu">button_menu</string>
+    <string name="surat_umum_text">Surat Umum</string>
+    <string name="mobile_e_dispo">Mobile E-Dispo</string>
+    <string name="kegiatan_luar">Kegiatan Luar</string>
+    <string name="agenda_hari_ini">Agenda Hari ini</string>
+    <string name="user_photo">user_photo</string>
+    <string name="empty">...</string>
+    <string name="bidang">Bidang :</string>
+    <string name="seksi">Seksi :</string>
+    <string name="hadir">Hadir :</string>
+    <string name="staff">Staff :</string>
+    <string name="share">Share</string>
+    <string name="detail">Detail</string>
+    <string name="kegiatan_external_bidang">Kegiatan External Bidang</string>
+    <string name="cari_tanggal_kegiatan">Cari Tanggal Kegiatan</string>
+    <string name="tidak_ada_kegiatan">Tidak Ada Kegiatan</string>
+    <string name="kegiatan_internal_bidang">Kegiatan Internal Bidang</string>
+    <string name="cari_tanggal_agenda_pppk">Cari Tanggal Agenda PPPK</string>
+    <string name="tidak_ada_agenda_pppk">Tidak Ada Agenda PPPK</string>
+    <string name="cari_tanggal_agenda_kegiatan">Cari Tanggal Agenda Kegiatan</string>
+    <string name="tidak_ada_agenda">Tidak Ada Agenda</string>
+    <string name="cari_agenda">Cari Agenda</string>
+</resources>
