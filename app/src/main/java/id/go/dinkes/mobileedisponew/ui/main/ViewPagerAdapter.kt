@@ -5,7 +5,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import id.go.dinkes.mobileedisponew.suratumum.SudahDiProsesFragment
+import id.go.dinkes.mobileedisponew.surat.BelumDiProsesFragment
+import id.go.dinkes.mobileedisponew.surat.SudahDiProsesFragment
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
@@ -13,7 +14,7 @@ import id.go.dinkes.mobileedisponew.suratumum.SudahDiProsesFragment
  */
 
 private  const val NUM_TABS = 2
-class SectionsPagerAdapter(fm: FragmentManager, lifecycle: Lifecycle) :
+class ViewPagerAdapter(fm: FragmentManager, lifecycle: Lifecycle) :
     FragmentStateAdapter(fm, lifecycle) {
     override fun getItemCount(): Int {
        return NUM_TABS
@@ -22,7 +23,8 @@ class SectionsPagerAdapter(fm: FragmentManager, lifecycle: Lifecycle) :
     override fun createFragment(position: Int): Fragment {
         when (position){
             0 -> return SudahDiProsesFragment()
-            1 ->
+            1 -> return BelumDiProsesFragment()
         }
+        return SudahDiProsesFragment()
     }
 }

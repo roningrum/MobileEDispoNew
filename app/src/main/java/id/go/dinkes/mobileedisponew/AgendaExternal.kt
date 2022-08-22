@@ -1,7 +1,7 @@
 package id.go.dinkes.mobileedisponew
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 
 class AgendaExternal : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

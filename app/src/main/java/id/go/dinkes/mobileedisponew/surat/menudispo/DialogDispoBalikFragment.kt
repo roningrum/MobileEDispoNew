@@ -1,4 +1,4 @@
-package id.go.dinkes.mobileedisponew.suratumum.menudispo
+package id.go.dinkes.mobileedisponew.surat.menudispo
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -1,7 +1,12 @@
-package id.go.dinkes.mobileedisponew.ui.main.home
+package id.go.dinkes.mobileedisponew.ui.main.home.adapter
 
+import android.content.Intent
+import android.content.Intent.EXTRA_TEXT
+import android.content.Intent.createChooser
+import android.content.pm.PackageManager
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import id.go.dinkes.mobileedisponew.R
@@ -40,6 +45,30 @@ class TodayAgenda(var agendaToday: List<Data>): RecyclerView.Adapter<TodayAgenda
         }
         else{
             holder.binding.cardAgenda.setCardBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.white))
+        }
+
+        holder.binding.btnShareWhatsapp.setOnClickListener {
+            val pm: PackageManager = holder.itemView.context.packageManager
+            try{
+                val text = "Agenda Tanggal : *${holder.binding.txtTanggalJam.text}* \n" +
+                        "Acara : *${agenda.acara}* \n"+
+                        "Lokasi : *${agenda.tempat}* \n"+
+                        "Dari : *${agenda.dari}* \n"+
+                        "Bidang : ${agenda.disposisi1} \n"+
+                        "Seksi : ${agenda.disposisi2} \n"+
+                        "Staff : ${agenda.disposisi3} \n"+
+                        "Hadir : ${agenda.semua_penerima} \n\n"+
+                        "(Data ini diambil dari aplikasi Mobile E-Disposisi)"
+
+                val waIntent = Intent(Intent.ACTION_SEND)
+                waIntent.type = "text/plain"
+                pm.getPackageInfo("com.whatsapp", PackageManager.GET_META_DATA)
+                waIntent.setPackage("com.whatsapp")
+                waIntent.putExtra(EXTRA_TEXT, text)
+                holder.itemView.context.startActivity(createChooser(waIntent, "Share with"))
+            } catch (e: PackageManager.NameNotFoundException){
+                Toast.makeText(holder.itemView.context, "WhatsApp not Installed", Toast.LENGTH_SHORT).show()
+            }
         }
 
     }

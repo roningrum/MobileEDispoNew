@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">http://119.2.50.170:9095/e_dispo/index.php/</domain>
+    </domain-config>
+</network-security-config>

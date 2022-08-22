@@ -1,4 +1,4 @@
-package id.go.dinkes.mobileedisponew
+package id.go.dinkes.mobileedisponew.model
 
 data class Data(
     val acara: String,

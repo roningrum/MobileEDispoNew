@@ -1,6 +1,201 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="6dp"
+    app:cardElevation="5dp"
+    app:cardPreventCornerOverlap="true"
+    android:layout_margin="5dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="3dp">
+
+        <TextView
+            android:id="@+id/txt_acara"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/empty"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/colorAbu"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:maxLines="2"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_location_grey"/>
+            <TextView
+                android:id="@+id/txt_tempat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/empty"
+                android:fontFamily="@font/roboto_light"
+                android:textColor="@color/colorAbu"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:layout_marginStart="5dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_tgl_jam"/>
+            <TextView
+                android:id="@+id/txt_tanggal_jam"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/empty"
+                android:fontFamily="@font/roboto_light"
+                android:textColor="@color/colorAbu"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:layout_marginStart="5dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pelaksana"
+                android:fontFamily="@font/roboto_light"
+                android:textColor="@color/colorAbu"
+                android:textStyle="bold"
+                android:textSize="15sp"/>
+            <TextView
+                android:id="@+id/txt_pelaksana"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/empty"
+                android:fontFamily="@font/roboto_light"
+                android:textColor="@color/colorAbu"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:layout_marginStart="5dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/penanggung_jawab"
+                android:fontFamily="@font/roboto_light"
+                android:textColor="@color/colorAbu"
+                android:textStyle="bold"
+                android:textSize="15sp"/>
+            <TextView
+                android:id="@+id/txt_pj"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/empty"
+                android:fontFamily="@font/roboto_light"
+                android:textColor="@color/colorAbu"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:layout_marginStart="5dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_keterangan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ket"
+                android:fontFamily="@font/roboto_light"
+                android:textColor="@color/colorAbu"
+                android:textStyle="bold"
+                android:textSize="15sp"/>
+            <TextView
+                android:id="@+id/txt_keterangan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/empty"
+                android:fontFamily="@font/roboto_light"
+                android:textColor="@color/colorAbu"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:layout_marginStart="5dp"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/roboto_light"
+            android:inputType="text|textMultiLine"
+            android:text="@string/hubungi_penanggung_jawab_via"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp"
+            android:weightSum="2">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_telepon"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_blue"
+                android:padding="8dp"
+                android:text="@string/telepon"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                android:drawableStart="@drawable/ic_telfon"
+                android:foreground="?android:attr/selectableItemBackground"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_sms"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_accept_background"
+                android:padding="8dp"
+                android:text="@string/sms"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                android:drawableStart="@drawable/ic_message_white"
+                android:foreground="?android:attr/selectableItemBackground"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
