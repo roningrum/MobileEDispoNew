@@ -63,7 +63,8 @@
                     android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_judul" />
+                    app:layout_constraintTop_toBottomOf="@+id/txt_judul"
+                    android:importantForAutofill="no" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_surat"
@@ -87,11 +88,13 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="UseCompoundDrawables">
 
                     <ImageView
                         android:layout_width="100dp"
                         android:layout_height="100dp"
+                        android:contentDescription="@string/kosong"
                         android:src="@drawable/ic_surat_kosong" />
 
                     <TextView

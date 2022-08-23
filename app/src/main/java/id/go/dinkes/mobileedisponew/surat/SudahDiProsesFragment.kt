@@ -52,7 +52,11 @@ class SudahDiProsesFragment : Fragment() {
             binding.etTglCari.visibility = GONE
         }
         binding.swipeRefresh.setOnRefreshListener {
-            if(jenis == "dispo balik"){
+            if(sessionManager.getRule() == "kadin"){
+                //khusus kadin
+                suratViewModel.getSuratDpbyKadin(jenis!!)
+            }
+            else if(jenis == "dispo balik"){
                 suratViewModel.getSuratDispoBalik(sessionManager.getRule(), sessionManager.getBidang(), sessionManager.getSeksi(), status_dispo_balik_sudah!!)
             }
             else{
@@ -65,7 +69,10 @@ class SudahDiProsesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if(jenis == "dispo balik"){
+        if(sessionManager.getRule() == "kadin"){
+            suratViewModel.getSuratDpbyKadin(jenis!!)
+        }
+        else if(jenis == "dispo balik"){
             suratViewModel.getSuratDispoBalik(sessionManager.getRule(), sessionManager.getBidang(), sessionManager.getSeksi(), status_dispo_balik_sudah!!)
         }
         else{
@@ -95,12 +102,8 @@ class SudahDiProsesFragment : Fragment() {
         }
         suratViewModel.loading.observe(viewLifecycleOwner){ isLoading->
             isLoading?.let {
-                if(it){
-                    binding.progressBar.visibility = View.VISIBLE
-                    binding.swipeRefresh.isRefreshing = true
-                }
-                else{
-                    binding.progressBar.visibility = GONE
+                binding.progressBar.visibility = if(it) View.VISIBLE else GONE
+                if(it) {
                     binding.swipeRefresh.isRefreshing = false
                 }
             }

@@ -3,6 +3,7 @@ package id.go.dinkes.mobileedisponew.ui.main.home
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -15,6 +16,7 @@ import id.go.dinkes.mobileedisponew.databinding.ActivityMainBinding
 import id.go.dinkes.mobileedisponew.databinding.EDispoMenuBinding
 import id.go.dinkes.mobileedisponew.remote.RetrofitService
 import id.go.dinkes.mobileedisponew.repository.DispoRepository
+import id.go.dinkes.mobileedisponew.ui.main.agenda.AgendaExternal
 import id.go.dinkes.mobileedisponew.ui.main.home.adapter.TodayAgenda
 import id.go.dinkes.mobileedisponew.util.GetDate
 import id.go.dinkes.mobileedisponew.util.SessionManager
@@ -43,6 +45,12 @@ class MainActivity : AppCompatActivity() {
 
         homeViewModel = ViewModelProvider(this, DispoViewModelFactory(repo)).get(HomeViewModel::class.java)
         homeViewModel.detailUser(userId)
+
+        CoroutineScope(IO).launch {
+            delay(5000)
+            binding.progressBar.visibility = View.GONE
+            homeViewModel.getAgendaHariIni(todayDate,todayDate)
+        }
         homeViewModel.getAgendaHariIni(todayDate,todayDate)
 
         initRecyclerView()
@@ -55,13 +63,17 @@ class MainActivity : AppCompatActivity() {
         binding.swipeRefresh.setOnRefreshListener {
             CoroutineScope(IO).launch {
                 delay(5000)
+                binding.progressBar.visibility = View.GONE
                 homeViewModel.getAgendaHariIni(todayDate,todayDate)
             }
         }
 
-        homeViewModel.loading.observe(this){
-            binding.swipeRefresh.isRefreshing = it
-
+        homeViewModel.loading.observe(this){ isLoading ->
+            isLoading?.let {
+                //it = true
+                binding.progressBar.visibility = if(it) View.VISIBLE else View.GONE
+            }
+            binding.swipeRefresh.isRefreshing = isLoading
         }
 
         homeViewModel.userDetail.observe(this){
@@ -111,7 +123,8 @@ class MainActivity : AppCompatActivity() {
 
         }
         edispoLayout.btnKegiatanLuar.setOnClickListener {
-
+            val intent = Intent(this, AgendaExternal::class.java)
+            startActivity(intent)
         }
         edispoLayout.btnKegiatanPpk.setOnClickListener {
 

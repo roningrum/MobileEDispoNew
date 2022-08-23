@@ -2,8 +2,10 @@ package id.go.dinkes.mobileedisponew.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import id.go.dinkes.mobileedisponew.model.Agenda
 import id.go.dinkes.mobileedisponew.repository.DispoRepository
 import id.go.dinkes.mobileedisponew.surat.SuratViewModel
+import id.go.dinkes.mobileedisponew.ui.main.agenda.AgendaViewModel
 import id.go.dinkes.mobileedisponew.ui.main.home.HomeViewModel
 import id.go.dinkes.mobileedisponew.ui.main.login.LoginViewModel
 
@@ -15,6 +17,8 @@ class DispoViewModelFactory constructor(private val repository: DispoRepository)
             HomeViewModel(repository) as T
         } else if(modelClass.isAssignableFrom(SuratViewModel::class.java)){
             SuratViewModel(repository) as T
+        }else if(modelClass.isAssignableFrom(AgendaViewModel::class.java)){
+            AgendaViewModel(repository) as T
         } else{
             throw IllegalAccessException("View Model Not Found")
         }

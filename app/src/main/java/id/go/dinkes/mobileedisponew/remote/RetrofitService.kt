@@ -2,10 +2,7 @@ package id.go.dinkes.mobileedisponew.remote
 
 import com.google.gson.GsonBuilder
 import id.go.dinkes.mobileedisponew.BuildConfig
-import id.go.dinkes.mobileedisponew.model.Agenda
-import id.go.dinkes.mobileedisponew.model.LoginUser
-import id.go.dinkes.mobileedisponew.model.SuratResponse
-import id.go.dinkes.mobileedisponew.model.UserDetail
+import id.go.dinkes.mobileedisponew.model.*
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response
@@ -69,6 +66,40 @@ interface RetrofitService {
         @Query("seksi") seksi: String,
         @Query("notif_dp_balik") notif_dp_balik: String
     ): Response<SuratResponse>
+
+
+    //dispo khusus rule Kadin
+    @GET("get_surat_dp_kadin_sudah_diproses")
+    suspend fun getSuratDPbyKadin(
+        @Query("jenis") jenis: String?
+    ):Response<SuratResponse>
+
+    //search Surat Kadin by tanggal
+    @GET("get_surat_dp_kadin_sudah_diproses_by_tgl")
+    suspend fun getSuratDPKadinbyTgl(
+        @Query("jenis") jenis: String?,
+        @Query("tgl_terima") tgl_terima: String?
+    ):Response<SuratResponse>
+
+    //bidang
+    @GET("get_bidang")
+    suspend fun getBidang():Response<BidangResponse>
+
+    //kegiatan eksternal
+    @GET("get_kegiatan_luar_bybidang")
+    suspend fun getKegiatanExternalBidang(
+        @Query("id_bidang") id_bidang: String?,
+        @Query("tgl_kegiatan") tgl_kegiatan: String?
+    ): Response<KegiatanLuarResponse>
+
+
+    //kegiatan internal
+    @GET("get_kegiatan_internal_bybidang")
+    suspend fun getKegiatanInternalBidang(
+        @Query("id_bidang") id_bidang: String?,
+        @Query("tgl_kegiatan") tgl_kegiatan: String?
+    ): Response<KegiatanInternalResponse>
+
 
     companion object{
         var retrofitService: RetrofitService? = null

@@ -13,4 +13,9 @@ class DispoRepository constructor(private val retrofitService: RetrofitService) 
 
     suspend fun getSuratDispoBalik(rule: String, bidang: String, seksi: String, notifDpBalik:String)
     = retrofitService.getListDpBalik(rule, bidang, seksi, notifDpBalik)
+
+    suspend fun getSuratbyKadin(jenis: String) = retrofitService.getSuratDPbyKadin(jenis)
+    suspend fun getBidang() = retrofitService.getBidang()
+    suspend fun getKegiatanExternalBidang(idBidang:String, tglKegiatan:String) = retrofitService.getKegiatanExternalBidang(idBidang, tglKegiatan)
+    suspend fun getKegiatanInternalBidang(idBidang:String, tglKegiatan:String) = retrofitService.getKegiatanInternalBidang(idBidang, tglKegiatan)
 }

@@ -68,6 +68,30 @@ class SuratViewModel constructor(private val repository: DispoRepository) : View
             }
         }
     }
+
+    //khusus kadin
+    fun getSuratDpbyKadin(jenis: String){
+        job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
+            val response = repository.getSuratbyKadin(jenis)
+            withContext(Dispatchers.Main){
+                if(response.isSuccessful){
+                    if(response.body()?.surat.isNullOrEmpty()){
+                        loadZero.value = true
+                    }
+                    else{
+                        surat.postValue(response.body())
+                        loadZero.value = false
+                    }
+                    loading.value = false
+                }
+                else{
+                    onError("Error : ${response.message()}")
+                    loading.value = false
+                    loadZero.value = true
+                }
+            }
+    }
+    }
     private fun onError(message: String){
         errorMessage.value = message
         loading.value = false

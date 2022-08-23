@@ -71,13 +71,13 @@
             android:name=".ui.main.home.CariAgenda"
             android:exported="false" />
         <activity
-            android:name=".AgendaPPPK"
+            android:name=".ui.main.agenda.AgendaPPPK"
             android:exported="false" />
         <activity
-            android:name=".AgendaInternal"
+            android:name=".ui.main.agenda.AgendaInternal"
             android:exported="false" />
         <activity
-            android:name=".AgendaExternal"
+            android:name=".ui.main.agenda.AgendaExternal"
             android:exported="false" />
         <activity
             android:name=".ui.main.home.MainActivity"

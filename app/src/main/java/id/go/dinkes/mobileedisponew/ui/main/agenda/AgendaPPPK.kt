@@ -1,7 +1,8 @@
-package id.go.dinkes.mobileedisponew
+package id.go.dinkes.mobileedisponew.ui.main.agenda
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import id.go.dinkes.mobileedisponew.R
 
 class AgendaPPPK : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

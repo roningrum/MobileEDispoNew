@@ -32,7 +32,9 @@
         android:focusable="true"
         android:focusableInTouchMode="false"
         android:clickable="true"
+        android:inputType="text"
         android:cursorVisible="false"
+        android:importantForAutofill="no"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_cari_agenda" />
