@@ -17,6 +17,7 @@ import id.go.dinkes.mobileedisponew.databinding.EDispoMenuBinding
 import id.go.dinkes.mobileedisponew.remote.RetrofitService
 import id.go.dinkes.mobileedisponew.repository.DispoRepository
 import id.go.dinkes.mobileedisponew.ui.main.agenda.AgendaExternal
+import id.go.dinkes.mobileedisponew.ui.main.agenda.AgendaInternal
 import id.go.dinkes.mobileedisponew.ui.main.home.adapter.TodayAgenda
 import id.go.dinkes.mobileedisponew.util.GetDate
 import id.go.dinkes.mobileedisponew.util.SessionManager
@@ -120,7 +121,8 @@ class MainActivity : AppCompatActivity() {
 
         }
         edispoLayout.btnKegiatanInternal.setOnClickListener {
-
+            val intent = Intent(this, AgendaInternal::class.java)
+            startActivity(intent)
         }
         edispoLayout.btnKegiatanLuar.setOnClickListener {
             val intent = Intent(this, AgendaExternal::class.java)

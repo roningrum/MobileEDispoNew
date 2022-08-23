@@ -1,4 +1,4 @@
-package id.go.dinkes.mobileedisponew.ui.main.agenda
+package id.go.dinkes.mobileedisponew.ui.main.agenda.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater

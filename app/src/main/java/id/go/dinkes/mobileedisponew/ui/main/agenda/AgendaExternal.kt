@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import id.go.dinkes.mobileedisponew.databinding.ActivityAgendaExternalBinding
 import id.go.dinkes.mobileedisponew.remote.RetrofitService
 import id.go.dinkes.mobileedisponew.repository.DispoRepository
+import id.go.dinkes.mobileedisponew.ui.main.agenda.adapter.KegiatanLuarAdapter
 import id.go.dinkes.mobileedisponew.util.GetDate
 import id.go.dinkes.mobileedisponew.viewmodel.DispoViewModelFactory
 import kotlinx.coroutines.CoroutineScope
@@ -44,6 +45,7 @@ class AgendaExternal : AppCompatActivity() {
         val repo = DispoRepository(retrofitService)
         viewModel = ViewModelProvider(this, DispoViewModelFactory(repo))[AgendaViewModel::class.java]
         viewModel.getBidang()
+        viewModel.getKegiatanExternalBidang("1", GetDate.getTodayDate())
 
         observeViewModel()
         initRecyclerView()
