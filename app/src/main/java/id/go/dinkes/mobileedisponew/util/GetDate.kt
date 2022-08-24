@@ -22,4 +22,5 @@ object GetDate {
         val formatter = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
         return dateCurrent?.let { formatter.format(it) }
     }
+
 }

@@ -18,4 +18,5 @@ class DispoRepository constructor(private val retrofitService: RetrofitService) 
     suspend fun getBidang() = retrofitService.getBidang()
     suspend fun getKegiatanExternalBidang(idBidang:String, tglKegiatan:String) = retrofitService.getKegiatanExternalBidang(idBidang, tglKegiatan)
     suspend fun getKegiatanInternalBidang(idBidang:String, tglKegiatan:String) = retrofitService.getKegiatanInternalBidang(idBidang, tglKegiatan)
+    suspend fun getKegiatanPPPK(dari:String, sampai:String) = retrofitService.getPPPK(dari, sampai)
 }

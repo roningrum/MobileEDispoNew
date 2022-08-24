@@ -1,4 +1,5 @@
-package id.go.dinkes.mobileedisponew
+package id.go.dinkes.mobileedisponew.model
 
-class KegiatanPPPKResponse {
-}
+data class KegiatanPPPKResponse (
+    val kegiatanPPPK : List<KegiatanPPPK>
+)

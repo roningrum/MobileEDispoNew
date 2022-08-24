@@ -100,6 +100,13 @@ interface RetrofitService {
         @Query("tgl_kegiatan") tgl_kegiatan: String?
     ): Response<KegiatanInternalResponse>
 
+    //kegiatan PPPK
+    @GET("get_pppk")
+    suspend fun getPPPK(
+        @Query("dari") dari: String,
+        @Query("sampai") sampai: String
+    ): Response<KegiatanPPPKResponse>
+
 
     companion object{
         var retrofitService: RetrofitService? = null

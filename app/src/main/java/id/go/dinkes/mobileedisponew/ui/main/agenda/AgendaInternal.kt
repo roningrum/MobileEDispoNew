@@ -12,12 +12,10 @@ import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import id.go.dinkes.mobileedisponew.R
 import id.go.dinkes.mobileedisponew.databinding.ActivityAgendaInternalBinding
 import id.go.dinkes.mobileedisponew.remote.RetrofitService
 import id.go.dinkes.mobileedisponew.repository.DispoRepository
 import id.go.dinkes.mobileedisponew.ui.main.agenda.adapter.KegiatanInternalAdapter
-import id.go.dinkes.mobileedisponew.ui.main.agenda.adapter.KegiatanLuarAdapter
 import id.go.dinkes.mobileedisponew.util.GetDate
 import id.go.dinkes.mobileedisponew.viewmodel.DispoViewModelFactory
 import kotlinx.coroutines.CoroutineScope

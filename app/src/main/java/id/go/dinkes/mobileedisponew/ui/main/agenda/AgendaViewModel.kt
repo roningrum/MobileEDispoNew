@@ -3,9 +3,7 @@ package id.go.dinkes.mobileedisponew.ui.main.agenda
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import id.go.dinkes.mobileedisponew.model.BidangResponse
-import id.go.dinkes.mobileedisponew.model.KegiatanInternalResponse
-import id.go.dinkes.mobileedisponew.model.KegiatanLuarResponse
+import id.go.dinkes.mobileedisponew.model.*
 import id.go.dinkes.mobileedisponew.repository.DispoRepository
 import kotlinx.coroutines.*
 
@@ -14,6 +12,7 @@ class AgendaViewModel constructor(private val repository: DispoRepository) : Vie
     val bidang = MutableLiveData<BidangResponse>()
     val kegiatanExternal = MutableLiveData<KegiatanLuarResponse>()
     val kegiatanInternal = MutableLiveData<KegiatanInternalResponse>()
+    val kegiatanPPPK = MutableLiveData<KegiatanPPPKResponse>()
     var job: Job? = null
 
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
@@ -76,6 +75,30 @@ class AgendaViewModel constructor(private val repository: DispoRepository) : Vie
                         kegiatanInternal.postValue(response.body())
                         loadZero.value = false
                         Log.d("Kegiatan Internal", "kegiatan ${response.body()}")
+                    }
+                }
+                else{
+                    onError("Error : ${response.message()}")
+                    loading.value = false
+                    loadZero.value = true
+                }
+            }
+        }
+    }
+
+    //kegiatan PPPK
+    fun getKegiatanPPPK(dari:String, sampai:String){
+        job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
+            val response = repository.getKegiatanPPPK(dari, sampai)
+            withContext(Dispatchers.Main){
+                if(response.isSuccessful){
+                    if(response.body()?.kegiatanPPPK.isNullOrEmpty()){
+                        loadZero.value = true
+                    }
+                    else{
+                        kegiatanPPPK.postValue(response.body())
+                        loadZero.value = false
+                        Log.d("Kegiatan PPPK", "kegiatan ${response.body()}")
                     }
                 }
                 else{

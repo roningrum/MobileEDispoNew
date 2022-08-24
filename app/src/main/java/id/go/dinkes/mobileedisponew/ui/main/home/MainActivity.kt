@@ -18,6 +18,7 @@ import id.go.dinkes.mobileedisponew.remote.RetrofitService
 import id.go.dinkes.mobileedisponew.repository.DispoRepository
 import id.go.dinkes.mobileedisponew.ui.main.agenda.AgendaExternal
 import id.go.dinkes.mobileedisponew.ui.main.agenda.AgendaInternal
+import id.go.dinkes.mobileedisponew.ui.main.agenda.AgendaPPPK
 import id.go.dinkes.mobileedisponew.ui.main.home.adapter.TodayAgenda
 import id.go.dinkes.mobileedisponew.util.GetDate
 import id.go.dinkes.mobileedisponew.util.SessionManager
@@ -129,7 +130,8 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
         edispoLayout.btnKegiatanPpk.setOnClickListener {
-
+            val intent = Intent(this, AgendaPPPK::class.java)
+            startActivity(intent)
         }
     }
 
