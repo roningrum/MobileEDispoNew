@@ -172,4 +172,10 @@
     <string name="kegiatan_pppk">Kegiatan PPPK</string>
     <string name="kosong">kosong</string>
     <string name="agenda_pppk">Agenda PPPK</string>
+    <string name="detail_agenda">Detail Agenda</string>
+    <string name="lokasi">lokasi</string>
+    <string name="jam">jam</string>
+    <string name="nomor_telepon_yang_dapat_dihubungi">Nomor telepon yang dapat dihubungi</string>
+    <string name="tidak_ada_kontak">Tidak Ada Kontak</string>
+    <string name="tidak_ada_file_surat">Tidak Ada File Surat</string>
 </resources>

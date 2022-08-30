@@ -33,6 +33,12 @@ interface RetrofitService {
         @Query("sampai") sampai:String?,
     ): Response<Agenda>
 
+    //detail Agenda
+    @GET("get_surat_byid")
+    suspend fun getSuratId(
+        @Query("id") id:String
+    ): Response<SuratResponse>
+
     //dapat Segala Jenis Surat
     @GET("surat_dp")
     suspend fun getSuratDp(

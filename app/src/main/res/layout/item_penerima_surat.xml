@@ -3,41 +3,38 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clickable="true"
-    android:padding="0dp"
+    android:padding="8dp"
+    android:background="@color/white"
     android:focusable="true">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/txt_nama"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#ffffff">
+        android:layout_centerVertical="true"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="5dp"
+        android:layout_toStartOf="@+id/btn_telepon"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/nama"
+        android:textColor="#383838"
+        android:textSize="14sp" />
 
-        <TextView
-            android:id="@+id/txt_nama"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:textSize="18sp"
-            android:textColor="#383838"
-            android:text="@string/nama"
-            android:fontFamily="@font/roboto_medium"
-            android:layout_centerVertical="true"
-            android:layout_toStartOf="@+id/btn_telepon"
-            android:layout_marginEnd="5dp"/>
-
-        <Button
-            android:id="@+id/btn_telepon"
-            android:layout_width="100dp"
-            android:layout_height="33dp"
-            android:background="@drawable/btn_accept_background"
-            android:padding="8dp"
-            android:text="@string/telepon"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            android:textSize="12sp"
-            android:drawableStart="@drawable/ic_telfon"
-            android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true"
-            android:layout_margin="5dp"/>
-    </RelativeLayout>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_telepon"
+        android:layout_width="100dp"
+        android:layout_height="33dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/btn_accept_background"
+        android:drawableStart="@drawable/ic_telfon"
+        android:padding="8dp"
+        android:text="@string/telepon"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="12sp" />
 
 </RelativeLayout>

@@ -4,14 +4,17 @@ import android.content.Intent
 import android.content.Intent.EXTRA_TEXT
 import android.content.Intent.createChooser
 import android.content.pm.PackageManager
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import id.go.dinkes.mobileedisponew.R
 import id.go.dinkes.mobileedisponew.databinding.ItemAgendaBinding
 import id.go.dinkes.mobileedisponew.model.Data
+import id.go.dinkes.mobileedisponew.ui.main.detail.DialogDetailAgenda
 import id.go.dinkes.mobileedisponew.util.GetDate
 
 class TodayAgenda(var agendaToday: List<Data>): RecyclerView.Adapter<TodayAgendaVH>() {
@@ -69,6 +72,13 @@ class TodayAgenda(var agendaToday: List<Data>): RecyclerView.Adapter<TodayAgenda
             } catch (e: PackageManager.NameNotFoundException){
                 Toast.makeText(holder.itemView.context, "WhatsApp not Installed", Toast.LENGTH_SHORT).show()
             }
+        }
+        holder.binding.btnDetail.setOnClickListener {
+            val showBottomDialog = DialogDetailAgenda()
+            val args = Bundle()
+            args.putString("id", agenda.id)
+            showBottomDialog.arguments = args
+            showBottomDialog.show((it.context as FragmentActivity).supportFragmentManager, showBottomDialog.tag)
         }
 
     }

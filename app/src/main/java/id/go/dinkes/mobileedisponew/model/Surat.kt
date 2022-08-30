@@ -30,7 +30,7 @@ data class Surat(
     val notif_suara: String,
     val notif_suara_h: String,
     val penerima: String,
-    val penerima_surat: List<Any>,
+    val penerima_surat: List<PenerimaSurat>,
     val perihal_surat: String,
     val status: String,
     val status_dp: String,
@@ -43,5 +43,5 @@ data class Surat(
     val tgl_surat: String,
     val tgl_terima: String,
     val update_at: String,
-    val keterangan_dp_balik: String
+    val keterangan_dp_balik: String,
 )
