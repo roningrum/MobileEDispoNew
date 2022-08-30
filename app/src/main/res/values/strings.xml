@@ -7,7 +7,7 @@
     <string name="kegiatan_luar">Kegiatan Luar</string>
     <string name="agenda_hari_ini">Agenda Hari ini</string>
     <string name="user_photo">user_photo</string>
-    <string name="empty">...</string>
+    <string name="empty">…</string>
     <string name="bidang">Bidang :</string>
     <string name="seksi">Seksi :</string>
     <string name="hadir">Hadir :</string>
@@ -178,4 +178,5 @@
     <string name="nomor_telepon_yang_dapat_dihubungi">Nomor telepon yang dapat dihubungi</string>
     <string name="tidak_ada_kontak">Tidak Ada Kontak</string>
     <string name="tidak_ada_file_surat">Tidak Ada File Surat</string>
+    <string name="surat">surat</string>
 </resources>

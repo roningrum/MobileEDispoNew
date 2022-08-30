@@ -29,7 +29,7 @@ class DialogDetailAgenda : BottomSheetDialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val retrofitService = RetrofitService.getInstance()
         val repo = DispoRepository(retrofitService)
         viewModel = ViewModelProvider(this@DialogDetailAgenda, DispoViewModelFactory(repo))[HomeViewModel::class.java]
@@ -91,7 +91,7 @@ class DialogDetailAgenda : BottomSheetDialogFragment() {
         viewModel.loading.observe(this){ isLoading ->
             isLoading?.let {
                 //it = true
-                binding.progressBar.visibility = if(it) View.VISIBLE else GONE
+                binding.progressBar.visibility = if(it) VISIBLE else GONE
             }
         }
 
@@ -102,7 +102,7 @@ class DialogDetailAgenda : BottomSheetDialogFragment() {
                     binding.textTeleponDihubungi.visibility = GONE
                 }
                 else{
-                    binding.textTeleponDihubungi.visibility = View.VISIBLE
+                    binding.textTeleponDihubungi.visibility = VISIBLE
                 }
             }
         }

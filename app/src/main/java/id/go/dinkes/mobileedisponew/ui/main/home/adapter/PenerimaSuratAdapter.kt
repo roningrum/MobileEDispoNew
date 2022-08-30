@@ -19,14 +19,14 @@ class PenerimaSuratAdapter (private var data: List<PenerimaSurat>) : RecyclerVie
     }
     override fun onBindViewHolder(holder: PenerimaSuratVH, position: Int) {
         val penerima = data[position]
-        if(penerima.telp.isNullOrEmpty()){
+        if(penerima.telp.isEmpty()){
             holder.binding.txtNama.text = "Tidak dicantumkan nomor telp"
         } else{
             holder.binding.txtNama.text = "${penerima.nama}(${penerima.telp})"
         }
 
         holder.binding.btnTelepon.setOnClickListener {
-            if(penerima.telp.isNullOrEmpty()){
+            if(penerima.telp.isEmpty()){
                 Toast.makeText(holder.itemView.context, "Nomor Telepon Pengguna Belum Diisi Melalui Profile E-Dispo", Toast.LENGTH_SHORT).show()
             }
             else{

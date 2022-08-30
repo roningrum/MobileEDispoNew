@@ -95,7 +95,7 @@ class HomeViewModel constructor(private val repository: DispoRepository) : ViewM
                     }
                     else{
                         surat.postValue(response.body())
-                        penerima.postValue(response.body()?.surat?.get(0)?.penerima_surat as List<PenerimaSurat>?)
+                        penerima.postValue(response.body()?.surat?.get(0)?.penerima_surat)
                         loadZero.value = false
                     }
                     loading.value = false
