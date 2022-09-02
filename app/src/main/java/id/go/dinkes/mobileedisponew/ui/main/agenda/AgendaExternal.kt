@@ -142,21 +142,14 @@ class AgendaExternal : AppCompatActivity() {
             }
         }
         viewModel.kegiatanExternal.observe(this){ kegiatanResponse->
-            kegiatanResponse.kegiatan_luar.let {
-                adapter = KegiatanLuarAdapter(it)
+            if(kegiatanResponse.kegiatan_luar.isNullOrEmpty()){
+                tidakAdaSurat()
+            } else{
+                adapter = KegiatanLuarAdapter(kegiatanResponse.kegiatan_luar)
                 binding.rvAgenda.adapter = adapter
+                adaSurat()
             }
 
-        }
-        viewModel.loadZero.observe(this){ isLoading->
-            isLoading?.let {
-                if(it){
-                    tidakAdaSurat()
-                }
-                else{
-                    adaSurat()
-                }
-            }
         }
     }
 

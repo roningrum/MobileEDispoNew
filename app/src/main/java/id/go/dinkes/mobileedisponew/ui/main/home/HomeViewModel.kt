@@ -2,12 +2,15 @@ package id.go.dinkes.mobileedisponew.ui.main.home
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import id.go.dinkes.mobileedisponew.model.Agenda
 import id.go.dinkes.mobileedisponew.model.PenerimaSurat
 import id.go.dinkes.mobileedisponew.model.SuratResponse
 import id.go.dinkes.mobileedisponew.model.UserDetail
 import id.go.dinkes.mobileedisponew.repository.DispoRepository
 import kotlinx.coroutines.*
+import retrofit2.HttpException
+import java.io.IOException
 
 class HomeViewModel constructor(private val repository: DispoRepository) : ViewModel() {
     val errorMessage = MutableLiveData<String>()
@@ -16,109 +19,129 @@ class HomeViewModel constructor(private val repository: DispoRepository) : ViewM
     val surat = MutableLiveData<SuratResponse>()
     val penerima = MutableLiveData<List<PenerimaSurat>>()
 
-    var job: Job? = null
-
-    private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
-        onError("Exception handled: ${throwable.localizedMessage}")
-    }
-
     val loading = MutableLiveData<Boolean>()
     val loadZero = MutableLiveData<Boolean>()
 
     fun detailUser(userId: String){
-        job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
-            val response = repository.getUserDetail(userId)
-            withContext(Dispatchers.Main){
-                if(response.isSuccessful){
-                    userDetail.postValue(response.body())
-                    loading.value = false
-                }
-                else{
-                    onError("Error: ${response.message()}")
+        viewModelScope.launch {
+            withContext(Dispatchers.IO){
+                try {
+                    val response = repository.getUserDetail(userId)
+                    userDetail.postValue(response.data!!)
+//                    loading.value = false
+                } catch (throwable : Throwable){
+                    when(throwable){
+                        is IOException -> {
+                            errorMessage.postValue("Jaringan Error")
+//                            loading.value = false
+                        }
+                        is HttpException -> {
+                            errorMessage.postValue("Error")
+//                            loading.value = false
+                        }
+                        else ->{
+                            errorMessage.postValue("Unknown Error")
+//                            loading.value = false
+                        }
+                    }
                 }
             }
-            delay(8000)
+            loading.value = false
         }
     }
 
     fun getAgendaHariIni(dari:String, sampai:String){
-        job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
-            val response = repository.getAgendaToday(dari, sampai)
-            withContext(Dispatchers.Main){
-                if(response.isSuccessful){
-                    agenda.postValue(response.body())
+        loading.value = true
+        viewModelScope.launch {
+            withContext(Dispatchers.IO){
+                try {
+                    val response = repository.getAgendaToday(dari, sampai)
+                    agenda.postValue(response.data!!)
                     loading.value = false
-                }
-                else{
-                    onError("Error: ${response.message()}")
-                    loading.value = false
+                } catch (throwable : Throwable){
+                    when(throwable){
+                        is IOException -> {
+                            errorMessage.postValue("Jaringan Error")
+//                            loading.value = false
+                        }
+                        is HttpException -> {
+                            errorMessage.postValue("Error")
+//                            loading.value = false
+                        }
+                        else ->{
+                            errorMessage.postValue("Unknown Error")
+//                            loading.value = false
+                        }
+                    }
                 }
             }
-            delay(8000)
         }
     }
 
     fun getAgendaSearch(dari: String, sampai: String){
-        job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
-            val response = repository.getAgendaToday(dari, sampai)
-            withContext(Dispatchers.Main){
-                loading.value = true
-                if(response.isSuccessful){
-                    if(response.body()?.result?.data.isNullOrEmpty()){
-                        loadZero.value = true
-                    }
-                    else{
-                        agenda.postValue(response.body())
-                        loadZero.value = false
-                    }
-                    loading.value = false
+        loading.value = true
+        viewModelScope.launch {
+            withContext(Dispatchers.IO){
+                try {
+                    val response = repository.getAgendaToday(dari, sampai)
+                    agenda.postValue(response.data!!)
 
-                }
-                else{
-                    onError("Error: ${response.message()}")
-                    loadZero.value = true
-                    loading.value = false
+                } catch (throwable : Throwable){
+                    when(throwable){
+                        is IOException -> {
+                            errorMessage.postValue("Jaringan Error")
+//                            loading.value = false
+                        }
+                        is HttpException -> {
+                            errorMessage.postValue("Error")
+//                            loading.value = false
+                        }
+                        else ->{
+                            errorMessage.postValue("Unknown Error")
+//                            loading.value = false
+                        }
+                    }
                 }
             }
-            delay(8000)
+            loading.value = false
         }
     }
 
     fun getDetailAgenda(id:String){
-        job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
-            val response = repository.getDetailSurat(id)
-            withContext(Dispatchers.Main){
-                loading.value = true
-                if(response.isSuccessful){
-                    if(response.body()?.surat.isNullOrEmpty() && response.body()?.surat?.get(0)?.penerima_surat.isNullOrEmpty()){
-                        loadZero.value = true
-                    }
-                    else{
-                        surat.postValue(response.body())
-                        penerima.postValue(response.body()?.surat?.get(0)?.penerima_surat)
-                        loadZero.value = false
-                    }
-                    loading.value = false
+        loading.value = true
 
-                }
-                else{
-                    onError("Error: ${response.message()}")
-                    loadZero.value = true
-                    loading.value = false
+        viewModelScope.launch {
+            withContext(Dispatchers.IO){
+                try {
+                    val response = repository.getDetailSurat(id)
+                    surat.postValue(response.data!!)
+//                    if(response.data?.surat.isNullOrEmpty()){
+//                        loadZero.value = true
+//                    }
+//                    else{
+//                       surat.postValue(response.data!!)
+//                        loadZero.value = false
+//                    }
+
+                } catch (throwable : Throwable){
+                    when(throwable){
+                        is IOException -> {
+                            errorMessage.postValue("Jaringan Error")
+//                            loading.value = false
+                        }
+                        is HttpException -> {
+                            errorMessage.postValue("Error")
+//                            loading.value = false
+                        }
+                        else ->{
+                            errorMessage.postValue("Unknown Error")
+//                            loading.value = false
+                        }
+                    }
                 }
             }
-            delay(8000)
+            loading.value = false
         }
-    }
-
-    private fun onError(message: String){
-        errorMessage.value = message
-        loading.value = false
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        job?.cancel()
     }
 
 }

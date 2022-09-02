@@ -60,20 +60,26 @@ class BelumDiProsesFragment : Fragment() {
 
     private fun observeViewModel() {
         suratViewModel.surat.observe(viewLifecycleOwner){
-            it.let {
+            if(it.surat.isNullOrEmpty()){
+                tidakAdaSurat()
+            } else{
                 adapter = SuratAdapter(it.surat, this.requireActivity())
                 binding.rvSurat.adapter = adapter
+                adaSurat()
             }
+//            it.let {
+//
+//            }
         }
-        suratViewModel.loadZero.observe(viewLifecycleOwner){ isLoading->
-            isLoading?.let {
-                if(it){
-                    tidakAdaSurat()
-                } else{
-                    adaSurat()
-                }
-            }
-        }
+//        suratViewModel.loadZero.observe(viewLifecycleOwner){ isLoading->
+//            isLoading?.let {
+//                if(it){
+//                    tidakAdaSurat()
+//                } else{
+//                    adaSurat()
+//                }
+//            }
+//        }
         suratViewModel.loading.observe(viewLifecycleOwner){ isLoading->
             isLoading?.let {
                 if(it){

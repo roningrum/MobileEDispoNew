@@ -86,9 +86,12 @@ class SudahDiProsesFragment : Fragment() {
     private fun observeViewModel() {
 
         suratViewModel.surat.observe(viewLifecycleOwner){
-            it.let {
+            if(it.surat.isNullOrEmpty()){
+                tidakAdaSurat()
+            } else{
                 adapterSurat = SuratAdapter(it.surat, this.requireActivity())
                 binding.rvSurat.adapter = adapterSurat
+                adaSurat()
             }
         }
         suratViewModel.loadZero.observe(viewLifecycleOwner){ isLoading->

@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.squareup.picasso.Picasso
+import id.go.dinkes.mobileedisponew.ProfileActivity
 import id.go.dinkes.mobileedisponew.R
 import id.go.dinkes.mobileedisponew.SuratMainActivity
 import id.go.dinkes.mobileedisponew.databinding.ActivityMainBinding
@@ -47,12 +48,6 @@ class MainActivity : AppCompatActivity() {
 
         homeViewModel = ViewModelProvider(this, DispoViewModelFactory(repo)).get(HomeViewModel::class.java)
         homeViewModel.detailUser(userId)
-
-        CoroutineScope(IO).launch {
-            delay(5000)
-            binding.progressBar.visibility = View.GONE
-            homeViewModel.getAgendaHariIni(todayDate,todayDate)
-        }
         homeViewModel.getAgendaHariIni(todayDate,todayDate)
 
         initRecyclerView()
@@ -63,13 +58,20 @@ class MainActivity : AppCompatActivity() {
         binding.agendaHariIniLayout.textAgendaHariIni.text = "Agenda hari ini $todayDate"
 
         binding.swipeRefresh.setOnRefreshListener {
-            CoroutineScope(IO).launch {
-                delay(5000)
-                binding.progressBar.visibility = View.GONE
-                homeViewModel.getAgendaHariIni(todayDate,todayDate)
-            }
+            homeViewModel.detailUser(userId)
+            homeViewModel.getAgendaHariIni(todayDate,todayDate)
+            observeViewModel()
         }
 
+        binding.imgProfile.setOnClickListener{
+            val intent = Intent(this, ProfileActivity::class.java)
+            startActivity(intent)
+        }
+
+        observeViewModel()
+    }
+
+    private fun observeViewModel(){
         homeViewModel.loading.observe(this){ isLoading ->
             isLoading?.let {
                 //it = true
@@ -96,10 +98,9 @@ class MainActivity : AppCompatActivity() {
             Log.d("agenda", "agenda${it.result.data}")
 
         }
-        homeViewModel.errorMessage.observe(this){
-            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
-        }
-
+//        homeViewModel.errorMessage.observe(this){
+//            Toast.makeText(this,"Silakan Koneksi Ulang", Toast.LENGTH_SHORT).show()
+//        }
     }
 
     private fun initMenuHome(edispoLayout: EDispoMenuBinding) {
@@ -144,9 +145,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
+       binding.agendaHariIniLayout.rvAgendaHariIni.layoutManager =  LinearLayoutManager(this)
         binding.agendaHariIniLayout.rvAgendaHariIni.setHasFixedSize(true)
-        val layoutManager = LinearLayoutManager(this)
-        binding.agendaHariIniLayout.rvAgendaHariIni.layoutManager = layoutManager
+
     }
 
     private fun accessCariAgenda(){

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
@@ -41,13 +42,24 @@ class LihatFileSurat : AppCompatActivity() {
             else if(fileSurat.takeLast(3) == "pdf"){
                 binding.imageview.visibility = GONE
                 binding.webview.settings.javaScriptEnabled = true
-                binding.webview.loadUrl("http://docs.google.com/gview?embedded=true&url=$urlFileSurat")
                 binding.webview.webViewClient = object : WebViewClient(){
+//                    override fun shouldOverrideUrlLoading(
+//                        view: WebView?,
+//                        request: WebResourceRequest?
+//                    ): Boolean {
+//                        view?.loadUrl("http://docs.google.com/gview?embedded=true&url=$urlFileSurat")
+//                        return false
+//                    }
                     override fun onPageFinished(view: WebView?, url: String?) {
+                        super.onPageFinished(view, url)
                         binding.progressbar.visibility = GONE
                     }
                 }
+                binding.webview.loadUrl("http://docs.google.com/gview?embedded=true&url=$urlFileSurat")
+
             }
+
+
         }
         else{
             binding.progressbar.visibility = GONE

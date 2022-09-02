@@ -30,6 +30,7 @@ class LoginActivity : AppCompatActivity() {
         val sessionManager = SessionManager(this)
         viewModel = ViewModelProvider(this,DispoViewModelFactory(repo)).get(LoginViewModel::class.java)
 
+
         viewModel.login.observe(this) {
             if(it.login.isEmpty()){
                 Toast.makeText(this, "Periksa Username dan Password", Toast.LENGTH_SHORT).show()
@@ -46,10 +47,11 @@ class LoginActivity : AppCompatActivity() {
             }
 
             Log.d("Login Masuk", "User ${it.login}")
+            Log.d("Login User id", "User Id ${sessionManager.getUserId()}")
         }
 
         viewModel.errorMessage.observe(this){
-            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, it,  Toast.LENGTH_SHORT).show()
         }
 
         viewModel.loading.observe(this){

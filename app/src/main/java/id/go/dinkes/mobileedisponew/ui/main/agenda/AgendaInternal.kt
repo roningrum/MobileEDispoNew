@@ -16,6 +16,7 @@ import id.go.dinkes.mobileedisponew.databinding.ActivityAgendaInternalBinding
 import id.go.dinkes.mobileedisponew.remote.RetrofitService
 import id.go.dinkes.mobileedisponew.repository.DispoRepository
 import id.go.dinkes.mobileedisponew.ui.main.agenda.adapter.KegiatanInternalAdapter
+import id.go.dinkes.mobileedisponew.ui.main.agenda.adapter.KegiatanLuarAdapter
 import id.go.dinkes.mobileedisponew.util.GetDate
 import id.go.dinkes.mobileedisponew.viewmodel.DispoViewModelFactory
 import kotlinx.coroutines.CoroutineScope
@@ -138,20 +139,12 @@ class AgendaInternal : AppCompatActivity() {
             }
         }
         viewModel.kegiatanInternal.observe(this){ kegiatanResponse->
-            kegiatanResponse.kegiatan_internal.let {
-                adapter = KegiatanInternalAdapter(it)
+            if(kegiatanResponse.kegiatan_internal.isNullOrEmpty()){
+                tidakAdaSurat()
+            } else{
+                adapter = KegiatanInternalAdapter(kegiatanResponse.kegiatan_internal)
                 binding.rvAgenda.adapter = adapter
-            }
-
-        }
-        viewModel.loadZero.observe(this){ isLoading->
-            isLoading?.let {
-                if(it){
-                    tidakAdaSurat()
-                }
-                else{
-                    adaSurat()
-                }
+                adaSurat()
             }
         }
     }

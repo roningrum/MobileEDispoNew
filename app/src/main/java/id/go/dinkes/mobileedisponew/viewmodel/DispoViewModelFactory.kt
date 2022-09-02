@@ -8,6 +8,7 @@ import id.go.dinkes.mobileedisponew.surat.SuratViewModel
 import id.go.dinkes.mobileedisponew.ui.main.agenda.AgendaViewModel
 import id.go.dinkes.mobileedisponew.ui.main.home.HomeViewModel
 import id.go.dinkes.mobileedisponew.ui.main.login.LoginViewModel
+import id.go.dinkes.mobileedisponew.ui.main.profile.ProfileViewModel
 
 class DispoViewModelFactory constructor(private val repository: DispoRepository) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -19,7 +20,11 @@ class DispoViewModelFactory constructor(private val repository: DispoRepository)
             SuratViewModel(repository) as T
         }else if(modelClass.isAssignableFrom(AgendaViewModel::class.java)){
             AgendaViewModel(repository) as T
-        } else{
+        }
+        else if(modelClass.isAssignableFrom(ProfileViewModel::class.java)){
+            ProfileViewModel(repository) as T
+        }
+        else{
             throw IllegalAccessException("View Model Not Found")
         }
     }

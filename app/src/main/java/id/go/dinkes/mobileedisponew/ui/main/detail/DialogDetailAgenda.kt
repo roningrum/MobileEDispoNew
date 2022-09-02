@@ -38,18 +38,19 @@ class DialogDetailAgenda : BottomSheetDialogFragment() {
         val argument = arguments
         id = argument?.getString("id").toString()
         viewModel.getDetailAgenda(id)
-        initRecyclerview()
+
         return binding.root
     }
 
     private fun initRecyclerview() {
-        val layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false)
-        binding.rvPenerimaSurat.layoutManager = layoutManager
+        binding.rvPenerimaSurat.layoutManager = LinearLayoutManager(this.context)
+        binding.rvPenerimaSurat.setHasFixedSize(true)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeViewModel()
+        initRecyclerview()
     }
 
     private fun observeViewModel() {
@@ -83,10 +84,8 @@ class DialogDetailAgenda : BottomSheetDialogFragment() {
 
         }
         viewModel.penerima.observe(this){
-            it.let {
-                val adapterPenerimaSurat = PenerimaSuratAdapter(it)
-                binding.rvPenerimaSurat.adapter = adapterPenerimaSurat
-            }
+            val adapterPenerimaSurat = PenerimaSuratAdapter(it)
+            binding.rvPenerimaSurat.adapter = adapterPenerimaSurat
         }
         viewModel.loading.observe(this){ isLoading ->
             isLoading?.let {

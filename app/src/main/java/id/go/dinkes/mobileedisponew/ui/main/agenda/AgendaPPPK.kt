@@ -10,8 +10,6 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import id.go.dinkes.mobileedisponew.R
-import id.go.dinkes.mobileedisponew.databinding.ActivityAgendaInternalBinding
 import id.go.dinkes.mobileedisponew.databinding.ActivityAgendaPppkBinding
 import id.go.dinkes.mobileedisponew.remote.RetrofitService
 import id.go.dinkes.mobileedisponew.repository.DispoRepository
@@ -109,9 +107,12 @@ class AgendaPPPK : AppCompatActivity() {
         }
         viewModel.kegiatanPPPK.observe(this)
         {
-            it.let{
+            if(it.kegiatanPPPK.isNullOrEmpty()){
+                tidakAdaSurat()
+            } else{
                 adapter = KegiatanPPPKAdapter(it.kegiatanPPPK)
                 binding.rvAgenda.adapter = adapter
+                adaSurat()
             }
         }
         viewModel.loading.observe(this){ isLoading->
