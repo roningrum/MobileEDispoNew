@@ -2,9 +2,8 @@ package id.go.dinkes.mobileedisponew.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import id.go.dinkes.mobileedisponew.model.Agenda
 import id.go.dinkes.mobileedisponew.repository.DispoRepository
-import id.go.dinkes.mobileedisponew.surat.SuratViewModel
+import id.go.dinkes.mobileedisponew.ui.main.surat.SuratViewModel
 import id.go.dinkes.mobileedisponew.ui.main.agenda.AgendaViewModel
 import id.go.dinkes.mobileedisponew.ui.main.home.HomeViewModel
 import id.go.dinkes.mobileedisponew.ui.main.login.LoginViewModel

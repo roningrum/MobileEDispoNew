@@ -56,7 +56,7 @@
             android:name=".HistoryCheckUpActivity"
             android:exported="false" />
         <activity
-            android:name=".DetailSuratActivity"
+            android:name=".ui.main.surat.DetailSuratActivity"
             android:exported="true"
             android:label="@string/title_activity_detail_surat"
             android:theme="@style/Theme.MobileEDispoNew.NoActionBar">

@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         homeViewModel.userDetail.observe(this){
-            if(!it.user[0].foto.isNullOrEmpty()){
+            if(!it.user[0].foto.isEmpty()){
                 Picasso.get().load("http://119.2.50.170:9095/e_dispo/assets/temp/foto/" + it.user[0].foto)
                     .placeholder(R.drawable.ic_user)
                     .error(R.drawable.ic_user)
@@ -155,5 +155,12 @@ class MainActivity : AppCompatActivity() {
         binding.agendaHariIniLayout.btnCariAgenda.setOnClickListener {
             startActivity(intent)
         }
+    }
+
+    override fun onBackPressed() {
+        val startMain = Intent(Intent.ACTION_MAIN)
+        startMain.addCategory(Intent.CATEGORY_HOME)
+        startMain.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(startMain)
     }
 }

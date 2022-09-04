@@ -19,6 +19,7 @@ class LoginActivity : AppCompatActivity() {
     lateinit var binding: ActivityLoginBinding
     lateinit var username:String
     lateinit var pass:String
+    lateinit var sessionManager: SessionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,15 +28,37 @@ class LoginActivity : AppCompatActivity() {
 
         val retrofitService = RetrofitService.getInstance()
         val repo = DispoRepository(retrofitService)
-        val sessionManager = SessionManager(this)
+
+        sessionManager = SessionManager(this)
         viewModel = ViewModelProvider(this,DispoViewModelFactory(repo)).get(LoginViewModel::class.java)
 
+        binding.btnMasuk.setOnClickListener {
+            username = binding.etUsername.text.toString()
+            pass = binding.etPassword.text.toString()
+            viewModel.loginUser(username, pass)
 
+            binding.progressBar.visibility = View.VISIBLE
+            binding.btnMasuk.visibility = View.GONE
+
+            Log.d("Login", "username $username")
+        }
+
+        observeViewModel()
+
+        if(sessionManager.isLogin()){
+            val intent = Intent(this, MainActivity::class.java)
+            finish()
+            startActivity(intent)
+        }
+    }
+
+    private fun observeViewModel() {
         viewModel.login.observe(this) {
             if(it.login.isEmpty()){
                 Toast.makeText(this, "Periksa Username dan Password", Toast.LENGTH_SHORT).show()
             }
             else{
+                sessionManager.createLoginSession()
                 sessionManager.setUserId(it.login[0].user_id)
                 sessionManager.setBidang(it.login[0].bidang)
                 sessionManager.setRule(it.login[0].rule)
@@ -55,27 +78,20 @@ class LoginActivity : AppCompatActivity() {
         }
 
         viewModel.loading.observe(this){
-          if(it){
-              binding.progressBar.visibility = View.VISIBLE
-              binding.btnMasuk.visibility = View.GONE
-          } else{
-              binding.progressBar.visibility = View.GONE
-              binding.btnMasuk.visibility = View.VISIBLE
-          }
+            if(it){
+                binding.progressBar.visibility = View.VISIBLE
+                binding.btnMasuk.visibility = View.GONE
+            } else{
+                binding.progressBar.visibility = View.GONE
+                binding.btnMasuk.visibility = View.VISIBLE
+            }
         }
+    }
 
-        binding.btnMasuk.setOnClickListener {
-            username = binding.etUsername.text.toString()
-            pass = binding.etPassword.text.toString()
-            viewModel.loginUser(username, pass)
-
-            binding.progressBar.visibility = View.VISIBLE
-            binding.btnMasuk.visibility = View.GONE
-
-            Log.d("Login", "username $username")
-        }
-
-
-
+    override fun onBackPressed() {
+        val startMain = Intent(Intent.ACTION_MAIN)
+        startMain.addCategory(Intent.CATEGORY_HOME)
+        startMain.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(startMain)
     }
 }

@@ -69,6 +69,7 @@ class CariAgenda : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                binding.layoutInisial.visibility = GONE
                homeViewModel.getAgendaSearch(search.text.toString(), search.text.toString())
                 var newDate: String?=""
                 val strDate = search.text.toString()
@@ -100,17 +101,6 @@ class CariAgenda : AppCompatActivity() {
     }
 
     private fun observeViewModel(){
-        homeViewModel.loadZero.observe(this){ isLoading ->
-            isLoading?.let {
-                if(it){
-                    tidakAdaSurat()
-                }
-                else{
-                    adaSurat()
-                }
-            }
-
-        }
         homeViewModel.loading.observe(this){ isLoading ->
             isLoading?.let {
                 binding.progressBar.visibility = if(it) VISIBLE else GONE
@@ -118,10 +108,15 @@ class CariAgenda : AppCompatActivity() {
 
         }
         homeViewModel.agenda.observe(this){
-            it.let {
+            if(it.result.data.isNullOrEmpty()){
+                tidakAdaSurat()
+            }
+            else{
                 todayAgenda = TodayAgenda(it.result.data)
                 binding.rvAgenda.adapter = todayAgenda
+                adaSurat()
             }
+
         }
     }
 

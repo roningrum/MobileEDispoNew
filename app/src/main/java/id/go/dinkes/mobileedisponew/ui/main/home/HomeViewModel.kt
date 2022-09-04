@@ -115,6 +115,7 @@ class HomeViewModel constructor(private val repository: DispoRepository) : ViewM
                 try {
                     val response = repository.getDetailSurat(id)
                     surat.postValue(response.data!!)
+                    penerima.postValue(response.data.surat[0].penerima_surat)
 //                    if(response.data?.surat.isNullOrEmpty()){
 //                        loadZero.value = true
 //                    }

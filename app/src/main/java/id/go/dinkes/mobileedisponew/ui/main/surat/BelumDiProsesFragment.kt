@@ -1,4 +1,4 @@
-package id.go.dinkes.mobileedisponew.surat
+package id.go.dinkes.mobileedisponew.ui.main.surat
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,7 +13,7 @@ import id.go.dinkes.mobileedisponew.SuratMainActivity
 import id.go.dinkes.mobileedisponew.databinding.FragmentBelumDiProsesBinding
 import id.go.dinkes.mobileedisponew.remote.RetrofitService
 import id.go.dinkes.mobileedisponew.repository.DispoRepository
-import id.go.dinkes.mobileedisponew.surat.adapter.SuratAdapter
+import id.go.dinkes.mobileedisponew.ui.main.surat.adapter.SuratAdapter
 import id.go.dinkes.mobileedisponew.util.SessionManager
 import id.go.dinkes.mobileedisponew.viewmodel.DispoViewModelFactory
 
@@ -30,7 +30,7 @@ class BelumDiProsesFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         val retrofitService = RetrofitService.getInstance()
         val repo = DispoRepository(retrofitService)

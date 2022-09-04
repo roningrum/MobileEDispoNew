@@ -1,4 +1,4 @@
-package id.go.dinkes.mobileedisponew.surat
+package id.go.dinkes.mobileedisponew.ui.main.surat
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,7 +14,7 @@ import id.go.dinkes.mobileedisponew.SuratMainActivity
 import id.go.dinkes.mobileedisponew.databinding.FragmentSudahDiProsesBinding
 import id.go.dinkes.mobileedisponew.remote.RetrofitService
 import id.go.dinkes.mobileedisponew.repository.DispoRepository
-import id.go.dinkes.mobileedisponew.surat.adapter.SuratAdapter
+import id.go.dinkes.mobileedisponew.ui.main.surat.adapter.SuratAdapter
 import id.go.dinkes.mobileedisponew.util.SessionManager
 import id.go.dinkes.mobileedisponew.viewmodel.DispoViewModelFactory
 

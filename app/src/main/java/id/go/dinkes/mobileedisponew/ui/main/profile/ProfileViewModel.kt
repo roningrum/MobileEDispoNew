@@ -13,20 +13,13 @@ class ProfileViewModel constructor(private val repository: DispoRepository) : Vi
     val errorMessage = MutableLiveData<String>()
     val userDetail = MutableLiveData<UserDetail>()
     val loading = MutableLiveData<Boolean>()
-    val loadZero = MutableLiveData<Boolean>()
 
     fun detailInfoUser(userId: String){
         viewModelScope.launch {
             withContext(Dispatchers.IO){
                 try {
                     val response = repository.getUserDetail(userId)
-                    if(response.data?.user.isNullOrEmpty()){
-                        loadZero.value = true
-                    }
-                    else{
-                        userDetail.postValue(response.data!!)
-                        loadZero.value = false
-                    }
+                    userDetail.postValue(response.data!!)
                 } catch (throwable : Throwable){
                     when(throwable){
                         is IOException -> {

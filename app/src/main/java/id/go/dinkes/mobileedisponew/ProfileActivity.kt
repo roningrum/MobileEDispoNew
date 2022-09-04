@@ -1,5 +1,6 @@
 package id.go.dinkes.mobileedisponew
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View.GONE
@@ -10,6 +11,8 @@ import com.squareup.picasso.Picasso
 import id.go.dinkes.mobileedisponew.databinding.ActivityProfileBinding
 import id.go.dinkes.mobileedisponew.remote.RetrofitService
 import id.go.dinkes.mobileedisponew.repository.DispoRepository
+import id.go.dinkes.mobileedisponew.ui.main.home.MainActivity
+import id.go.dinkes.mobileedisponew.ui.main.login.LoginActivity
 import id.go.dinkes.mobileedisponew.ui.main.profile.ProfileViewModel
 import id.go.dinkes.mobileedisponew.util.GetDate
 import id.go.dinkes.mobileedisponew.util.SessionManager
@@ -44,16 +47,21 @@ class ProfileActivity : AppCompatActivity() {
             getColor(android.R.color.holo_orange_light),
             getColor(android.R.color.holo_red_light),
         )
+
+        binding.btnLogout.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            sessionManager.logout()
+            finish()
+        }
     }
 
     private fun observeViewModel() {
         viewModel.loading.observe(this){ isLoading->
             isLoading.let {
                 binding.progressBar.visibility = if(it) VISIBLE else GONE
-                if(it){
-                    binding.swpRefresh.isRefreshing = false
-                }
             }
+            binding.swpRefresh.isRefreshing = isLoading
         }
         viewModel.userDetail.observe(this){ userDetail->
             if(userDetail!=null){

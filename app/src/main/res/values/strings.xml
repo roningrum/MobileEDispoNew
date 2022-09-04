@@ -180,4 +180,13 @@
     <string name="tidak_ada_file_surat">Tidak Ada File Surat</string>
     <string name="surat">surat</string>
     <string name="upload_notulen">Upload Notulen</string>
+    <string name="logo">logo</string>
+    <string name="silakan_cari_agenda">Silakan Cari Agenda</string>
+    <string name="menu_disposisi">Menu Disposisi</string>
+    <string name="tujuan_disposisi">Tujuan Disposisi</string>
+    <string name="isi_disposisi">Isi Disposisi</string>
+    <string name="kirim_disposisi">Kirim Disposisi</string>
+    <string name="menu_disposisi_balik">Menu Disposisi Balik</string>
+    <string name="alasan_disposisi_balik">Alasan disposisi balik</string>
+    <string name="mobile_e_disposisi">Mobile E-Disposisi</string>
 </resources>

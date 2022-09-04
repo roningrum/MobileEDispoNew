@@ -13,6 +13,16 @@ class SessionManager(context: Context) {
         editor = preferences.edit()
     }
 
+    //cek Login
+
+    fun createLoginSession(){
+        editor.putBoolean("login_status", true)
+        editor.commit()
+    }
+    fun isLogin(): Boolean{
+        return preferences.getBoolean("login_status", false)
+    }
+
     fun setUserId(userId:String){
         editor.putString("id_user", userId)
         editor.commit()
@@ -49,6 +59,9 @@ class SessionManager(context: Context) {
         return preferences.getString("seksi", "")!!
     }
 
-
+    fun logout(){
+        editor.clear()
+        editor.commit()
+    }
 
 }

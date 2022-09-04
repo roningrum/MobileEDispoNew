@@ -1,11 +1,14 @@
-package id.go.dinkes.mobileedisponew.surat.adapter
+package id.go.dinkes.mobileedisponew.ui.main.surat.adapter
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import id.go.dinkes.mobileedisponew.databinding.ItemSuratBinding
 import id.go.dinkes.mobileedisponew.model.Surat
+import id.go.dinkes.mobileedisponew.ui.main.surat.DetailSuratActivity
 import id.go.dinkes.mobileedisponew.util.GetDate
 
 class SuratAdapter (var data: List<Surat>, var context: FragmentActivity) : RecyclerView.Adapter<SuratAdapterVH>() {
@@ -15,6 +18,7 @@ class SuratAdapter (var data: List<Surat>, var context: FragmentActivity) : Recy
         return SuratAdapterVH(binding)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: SuratAdapterVH, position: Int) {
        val surat = data[position]
         if(surat.tgl_terima != "0000-00-00"){
@@ -39,6 +43,11 @@ class SuratAdapter (var data: List<Surat>, var context: FragmentActivity) : Recy
         holder.binding.txtHadir.text = surat.disposisi3
         holder.binding.txtKeterangan.text = surat.isi_dp
         holder.binding.txtIsiSurat.text = surat.isi_surat
+        holder.binding.btnDetail.setOnClickListener {
+            val intent = Intent(holder.itemView.context, DetailSuratActivity::class.java)
+            intent.putExtra("id_surat", surat.id_surat)
+            holder.itemView.context.startActivity(intent)
+        }
 //        holder.binding.txtKeteranganDpBalik.text = surat.dp
 
     }

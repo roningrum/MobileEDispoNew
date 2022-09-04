@@ -24,6 +24,7 @@ import id.go.dinkes.mobileedisponew.viewmodel.DispoViewModelFactory
 class DialogDetailAgenda : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentDialogDetailAgendaFragementBinding
     lateinit var viewModel : HomeViewModel
+    lateinit var penerimaSuratAdapter: PenerimaSuratAdapter
     var id:String = ""
 
     override fun onCreateView(
@@ -42,16 +43,15 @@ class DialogDetailAgenda : BottomSheetDialogFragment() {
         return binding.root
     }
 
-    private fun initRecyclerview() {
-        binding.rvPenerimaSurat.layoutManager = LinearLayoutManager(this.context)
-        binding.rvPenerimaSurat.setHasFixedSize(true)
-    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        observeViewModel()
         initRecyclerview()
+        observeViewModel()
+
     }
+
 
     private fun observeViewModel() {
         viewModel.surat.observe(this){ surat->
@@ -84,8 +84,10 @@ class DialogDetailAgenda : BottomSheetDialogFragment() {
 
         }
         viewModel.penerima.observe(this){
-            val adapterPenerimaSurat = PenerimaSuratAdapter(it)
-            binding.rvPenerimaSurat.adapter = adapterPenerimaSurat
+            it.let {
+                penerimaSuratAdapter = PenerimaSuratAdapter(it)
+                binding.rvPenerimaSurat.adapter = penerimaSuratAdapter
+            }
         }
         viewModel.loading.observe(this){ isLoading ->
             isLoading?.let {
@@ -106,5 +108,9 @@ class DialogDetailAgenda : BottomSheetDialogFragment() {
             }
         }
 
+    }
+    private fun initRecyclerview() {
+        binding.rvPenerimaSurat.layoutManager = LinearLayoutManager(this.context)
+        binding.rvPenerimaSurat.setHasFixedSize(true)
     }
 }
