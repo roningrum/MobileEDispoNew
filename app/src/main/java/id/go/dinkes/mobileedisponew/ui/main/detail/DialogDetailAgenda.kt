@@ -11,14 +11,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import id.go.dinkes.mobileedisponew.LihatFileSurat
-import id.go.dinkes.mobileedisponew.R
 import id.go.dinkes.mobileedisponew.databinding.FragmentDialogDetailAgendaFragementBinding
-import id.go.dinkes.mobileedisponew.model.PenerimaSurat
 import id.go.dinkes.mobileedisponew.remote.RetrofitService
 import id.go.dinkes.mobileedisponew.repository.DispoRepository
 import id.go.dinkes.mobileedisponew.ui.main.home.HomeViewModel
 import id.go.dinkes.mobileedisponew.ui.main.home.adapter.PenerimaSuratAdapter
-import id.go.dinkes.mobileedisponew.util.GetDate
 import id.go.dinkes.mobileedisponew.viewmodel.DispoViewModelFactory
 
 class DialogDetailAgenda : BottomSheetDialogFragment() {

@@ -24,15 +24,12 @@ import id.go.dinkes.mobileedisponew.ui.main.home.adapter.TodayAgenda
 import id.go.dinkes.mobileedisponew.util.GetDate
 import id.go.dinkes.mobileedisponew.util.SessionManager
 import id.go.dinkes.mobileedisponew.viewmodel.DispoViewModelFactory
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     lateinit var homeViewModel: HomeViewModel
     lateinit var binding: ActivityMainBinding
     lateinit var agenda: TodayAgenda
+    var backPressedTime: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -158,9 +155,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        val startMain = Intent(Intent.ACTION_MAIN)
-        startMain.addCategory(Intent.CATEGORY_HOME)
-        startMain.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-        startActivity(startMain)
+        if(backPressedTime + 2000 > System.currentTimeMillis()){
+            super.onBackPressed()
+//            val startMain = Intent(Intent.ACTION_MAIN)
+//            startMain.addCategory(Intent.CATEGORY_HOME)
+//            startMain.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+//            startActivity(startMain)
+            Toast.makeText(this, "Terima kasih, Selamat Beraktivitas", Toast.LENGTH_SHORT).show()
+            finish()
+        }
+        else{
+            Toast.makeText(this, "Tekan kembali sebelum keluar dari aplikasi", Toast.LENGTH_SHORT).show()
+        }
+
+        backPressedTime = System.currentTimeMillis()
+
     }
 }

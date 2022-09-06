@@ -17,9 +17,20 @@ class DispoRepository constructor(private val retrofitService: RetrofitService) 
     = safeApiCall { retrofitService.getListDpBalik(rule, bidang, seksi, notifDpBalik) }
 
     suspend fun getSuratbyKadin(jenis: String) : Result<SuratResponse> = safeApiCall { retrofitService.getSuratDPbyKadin(jenis) }
+    suspend fun getSuratbyKadinByTgl(jenis: String, date: String) : Result<SuratResponse> = safeApiCall { retrofitService.getSuratDPKadinbyTgl(jenis, date) }
     suspend fun getBidang() : Result<BidangResponse> = safeApiCall { retrofitService.getBidang() }
     suspend fun getKegiatanExternalBidang(idBidang:String, tglKegiatan:String) : Result<KegiatanLuarResponse> = safeApiCall { retrofitService.getKegiatanExternalBidang(idBidang, tglKegiatan) }
     suspend fun getKegiatanInternalBidang(idBidang:String, tglKegiatan:String) : Result<KegiatanInternalResponse> = safeApiCall { retrofitService.getKegiatanInternalBidang(idBidang, tglKegiatan) }
     suspend fun getKegiatanPPPK(dari:String, sampai:String) : Result<KegiatanPPPKResponse> = safeApiCall { retrofitService.getPPPK(dari, sampai) }
     suspend fun getDetailSurat(id:String): Result<SuratResponse> = safeApiCall { retrofitService.getSuratId(id) }
+
+    suspend fun getItemDispo(rule: String, bidang: String, seksi: String) : Result<ItemDisposisiResponse> = safeApiCall { retrofitService.getItemDisposisi(rule, bidang, seksi) }
+    suspend fun getItemEditDisposisi(idSurat: String, rule: String) : Result<ItemEditDisposisiResponse> = safeApiCall { retrofitService.getItemEditDisposisi(idSurat, rule) }
+
+    suspend fun getDispoBalik(idSurat: String, isiDp:String, rule:String, idBidang:String, idSeksi:String, userId: String): Result<SuccessMessage> = safeApiCall { retrofitService.dispoBalik(idSurat, isiDp, rule, idBidang, idSeksi, userId) }
+
+    suspend fun getTerimaKadin(idSurat: String, userId:String, idBidang: String ):Result<SuccessMessage> = safeApiCall { retrofitService.terimaKadin(idSurat, userId, idBidang) }
+    suspend fun getTerimaKabid(idSurat: String, userId:String, idBidang: String ):Result<SuccessMessage> = safeApiCall { retrofitService.terimaKabid(idSurat, userId, idBidang) }
+    suspend fun getTerimaKasi(idSurat: String, userId: String, idBidang: String, seksi: String) :Result<SuccessMessage> = safeApiCall { retrofitService.terimaKasi(idSurat, userId, idBidang, seksi)}
+    suspend fun getTerimaStaff(idSurat: String, userId: String) :Result<SuccessMessage> = safeApiCall { retrofitService.terimaStaff(idSurat, userId)}
 }

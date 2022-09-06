@@ -1,12 +1,11 @@
-package id.go.dinkes.mobileedisponew.ui.main.home
+package id.go.dinkes.mobileedisponew.ui.main.surat.menudispo
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import id.go.dinkes.mobileedisponew.model.Agenda
-import id.go.dinkes.mobileedisponew.model.PenerimaSurat
-import id.go.dinkes.mobileedisponew.model.SuratResponse
-import id.go.dinkes.mobileedisponew.model.UserDetail
+import id.go.dinkes.mobileedisponew.model.ItemDisposisiResponse
+import id.go.dinkes.mobileedisponew.model.ItemEditDisposisiResponse
+import id.go.dinkes.mobileedisponew.model.SuccessMessage
 import id.go.dinkes.mobileedisponew.repository.DispoRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -14,52 +13,21 @@ import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import java.io.IOException
 
-class HomeViewModel constructor(private val repository: DispoRepository) : ViewModel() {
+class MenuDispoViewModel constructor(private val repository: DispoRepository) : ViewModel() {
+    val listItemDisposisi = MutableLiveData<ItemDisposisiResponse>()
+    val listItemEditDiposisi = MutableLiveData<ItemEditDisposisiResponse>()
     val errorMessage = MutableLiveData<String>()
-    val userDetail = MutableLiveData<UserDetail>()
-    val agenda = MutableLiveData<Agenda>()
-    val surat = MutableLiveData<SuratResponse>()
-    val penerima = MutableLiveData<List<PenerimaSurat>>()
-
+    val successMessage = MutableLiveData<SuccessMessage>()
     val loading = MutableLiveData<Boolean>()
-    val loadZero = MutableLiveData<Boolean>()
 
-    fun detailUser(userId: String){
-        viewModelScope.launch {
-            withContext(Dispatchers.IO){
-                try {
-                    val response = repository.getUserDetail(userId)
-                    userDetail.postValue(response.data!!)
-//                    loading.value = false
-                } catch (throwable : Throwable){
-                    when(throwable){
-                        is IOException -> {
-                            errorMessage.postValue("Jaringan Error")
-//                            loading.value = false
-                        }
-                        is HttpException -> {
-                            errorMessage.postValue("Error")
-//                            loading.value = false
-                        }
-                        else ->{
-                            errorMessage.postValue("Unknown Error")
-//                            loading.value = false
-                        }
-                    }
-                }
-            }
-            loading.value = false
-        }
-    }
-
-    fun getAgendaHariIni(dari:String, sampai:String){
+    //Item Disposisi
+    fun getItemDisposisi(rule: String, bidang: String, seksi:String){
         loading.value = true
         viewModelScope.launch {
             withContext(Dispatchers.IO){
                 try {
-                    val response = repository.getAgendaToday(dari, sampai)
-                    agenda.postValue(response.data!!)
-                    loading.value = false
+                    val response = repository.getItemDispo(rule, bidang, seksi)
+                    listItemDisposisi.postValue(response.data!!)
                 } catch (throwable : Throwable){
                     when(throwable){
                         is IOException -> {
@@ -80,14 +48,14 @@ class HomeViewModel constructor(private val repository: DispoRepository) : ViewM
         }
     }
 
-    fun getAgendaSearch(dari: String, sampai: String){
+    //Item Edit Disposisi
+    fun getItemEditDisposisi(idSurat:String, rule: String){
         loading.value = true
         viewModelScope.launch {
             withContext(Dispatchers.IO){
                 try {
-                    val response = repository.getAgendaToday(dari, sampai)
-                    agenda.postValue(response.data!!)
-
+                    val response = repository.getItemEditDisposisi(idSurat, rule)
+                    listItemEditDiposisi.postValue(response.data!!)
                 } catch (throwable : Throwable){
                     when(throwable){
                         is IOException -> {
@@ -105,27 +73,16 @@ class HomeViewModel constructor(private val repository: DispoRepository) : ViewM
                     }
                 }
             }
-            loading.value = false
         }
     }
 
-    fun getDetailAgenda(id:String){
-        loading.value = true
-
+    //dispobalik
+    fun getDispoBalik(idSurat: String, isiDp:String, rule:String, idBidang:String, idSeksi:String, userId: String){
         viewModelScope.launch {
             withContext(Dispatchers.IO){
                 try {
-                    val response = repository.getDetailSurat(id)
-                    surat.postValue(response.data!!)
-                    penerima.postValue(response.data.surat[0].penerima_surat)
-//                    if(response.data?.surat.isNullOrEmpty()){
-//                        loadZero.value = true
-//                    }
-//                    else{
-//                       surat.postValue(response.data!!)
-//                        loadZero.value = false
-//                    }
-
+                    val response = repository.getDispoBalik(idSurat, isiDp, rule, idBidang, idSeksi, userId)
+                   successMessage.postValue(response.data!!)
                 } catch (throwable : Throwable){
                     when(throwable){
                         is IOException -> {
@@ -143,8 +100,6 @@ class HomeViewModel constructor(private val repository: DispoRepository) : ViewM
                     }
                 }
             }
-            loading.value = false
         }
     }
-
 }

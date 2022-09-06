@@ -189,4 +189,6 @@
     <string name="menu_disposisi_balik">Menu Disposisi Balik</string>
     <string name="alasan_disposisi_balik">Alasan disposisi balik</string>
     <string name="mobile_e_disposisi">Mobile E-Disposisi</string>
+    <string name="kirim_disposisi_balik">Kirim Disposisi Balik</string>
+    <string name="berhasil">Berhasil</string>
 </resources>

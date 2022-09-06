@@ -16,7 +16,6 @@ import id.go.dinkes.mobileedisponew.databinding.ActivityAgendaInternalBinding
 import id.go.dinkes.mobileedisponew.remote.RetrofitService
 import id.go.dinkes.mobileedisponew.repository.DispoRepository
 import id.go.dinkes.mobileedisponew.ui.main.agenda.adapter.KegiatanInternalAdapter
-import id.go.dinkes.mobileedisponew.ui.main.agenda.adapter.KegiatanLuarAdapter
 import id.go.dinkes.mobileedisponew.util.GetDate
 import id.go.dinkes.mobileedisponew.viewmodel.DispoViewModelFactory
 import kotlinx.coroutines.CoroutineScope

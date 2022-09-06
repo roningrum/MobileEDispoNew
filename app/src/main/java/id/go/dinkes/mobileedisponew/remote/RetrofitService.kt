@@ -5,11 +5,11 @@ import id.go.dinkes.mobileedisponew.BuildConfig
 import id.go.dinkes.mobileedisponew.model.*
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
-import retrofit2.http.Query
+import retrofit2.http.*
 import java.util.concurrent.TimeUnit
 
 interface RetrofitService {
@@ -113,6 +113,104 @@ interface RetrofitService {
         @Query("sampai") sampai: String
     ): Response<KegiatanPPPKResponse>
 
+    //get Item Disposisi Rule Kadin
+    @GET("get_item_disposisi")
+    suspend fun getItemDisposisi(
+        @Query("rule") rule: String?,
+        @Query("bidang") bidang: String?,
+        @Query("seksi") seksi: String
+    ): Response<ItemDisposisiResponse>
+
+    //get Item Edit Disposisi
+    @GET("get_item_edit_disposisi")
+    suspend fun getItemEditDisposisi(
+        @Query("id_surat") idSurat: String?,
+        @Query("rule") rule: String?
+    ): Response<ItemEditDisposisiResponse>
+
+    //form terima Surat Disposisi
+
+    //mendispo
+    @FormUrlEncoded
+    @POST("post_disposisi")
+    suspend fun postDisposisi(
+        @Field("id_surat") id_surat: String?,
+        @Field("disposisi") disposisi: String?,
+        @Field("isi_dp") isi_dp: String?,
+        @Field("rule") rule: String?,
+        @Field("id_bidang") id_bidang: String?,
+        @Field("id_seksi") id_seksi: String?,
+        @Field("user_id") user_id: String?,
+        @Field("if") instalasi_farmasi: String?
+    ): Response<SuccessMessage>
+
+    //oleh Kadin
+    @FormUrlEncoded
+    @POST("terima_kadin")
+    suspend fun terimaKadin(
+        @Field("id_surat") id_surat: String?,
+        @Field("user_id") user_id: String?,
+        @Field("id_bidang") id_bidang: String?
+    ): Response<SuccessMessage>
+
+    //oleh Kabid
+    @FormUrlEncoded
+    @POST("terima_kabid")
+    suspend fun terimaKabid(
+        @Field("id_surat") id_surat: String?,
+        @Field("user_id") user_id: String?,
+        @Field("id_bidang") id_bidang: String?
+    ): Response<SuccessMessage>
+
+    //oleh Kasi
+    @FormUrlEncoded
+    @POST("terima_kasi")
+    fun terimaKasi(
+        @Field("id_surat") id_surat: String?,
+        @Field("user_id") user_id: String?,
+        @Field("id_bidang") id_bidang: String?,
+        @Field("id_seksi") id_seksi: String?
+    ): Response<SuccessMessage>
+
+    //oleh Staff
+    @FormUrlEncoded
+    @POST("terima_staff")
+    suspend fun terimaStaff(
+        @Field("id_surat") idSurat: String?,
+        @Field("user_id") user_id: String?
+    ): Response<SuccessMessage>
+
+    // Dispo Balik
+    @FormUrlEncoded
+    @POST("dispo_balik")
+    suspend fun dispoBalik(
+        @Field("id_surat") id_surat: String?,
+        @Field("isi_dp") isi_dp: String?,
+        @Field("rule") rule: String?,
+        @Field("id_bidang") id_bidang: String?,
+        @Field("id_seksi") id_seksi: String?,
+        @Field("user_id") user_id: String?
+    ): Response<SuccessMessage>
+
+    //Edit Profile
+    @FormUrlEncoded
+    @POST("edit_profile")
+    suspend fun editProfile(
+        @Field("user_id") user_id: String,
+        @Field("nama") nama: String,
+        @Field("nik") nik: String,
+        @Field("telp") telp: String,
+        @Field("tgl_lahir") tgl_lahir: String,
+        @Field("jenis_kelamin") jenis_kelamin: String
+    ): Response<SuccessMessage>
+
+    //insert register
+    @FormUrlEncoded
+    @POST("edit_foto")
+    suspend fun edit_foto(
+        @Field("user_id") user_id: String,
+        @Field("foto") foto: String
+    ): Response<SuccessMessage>
 
     companion object{
         var retrofitService: RetrofitService? = null

@@ -1,6 +1,10 @@
 package id.go.dinkes.mobileedisponew.ui.main.surat
 
+import android.app.DatePickerDialog
+import android.icu.util.Calendar
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -17,6 +21,8 @@ import id.go.dinkes.mobileedisponew.repository.DispoRepository
 import id.go.dinkes.mobileedisponew.ui.main.surat.adapter.SuratAdapter
 import id.go.dinkes.mobileedisponew.util.SessionManager
 import id.go.dinkes.mobileedisponew.viewmodel.DispoViewModelFactory
+import java.text.SimpleDateFormat
+import java.util.*
 
 class SudahDiProsesFragment : Fragment() {
 
@@ -47,6 +53,61 @@ class SudahDiProsesFragment : Fragment() {
         sessionManager = SessionManager(requireContext())
 
         binding.txtJudul.text = "Surat $jenis telah diproses"
+
+        binding.etTglCari.setOnClickListener {
+            val calendar = Calendar.getInstance()
+            val year =calendar.get(Calendar.YEAR)
+            val month =calendar.get(Calendar.MONTH)
+            val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+            val datePickerDialog = DatePickerDialog(
+                // on below line we are passing context.
+                this.requireContext(),
+                { view, year, monthOfYear, dayOfMonth ->
+                    // on below line we are setting
+                    // date to our edit text.
+                    val dat = (dayOfMonth.toString() + "-" + (monthOfYear + 1) + "-" + year)
+                    binding.etTglCari.setText(dat)
+                },
+                // on below line we are passing year, month
+                // and day for the selected date in our date picker.
+                year,
+                month,
+                day
+            )
+            datePickerDialog.show()
+        }
+
+        binding.etTglCari.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                var newDate: String?=""
+                val strDate = binding.etTglCari.text.toString()
+                val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+                val convertedDate: Date
+                try{
+                    convertedDate = dateFormat.parse(strDate)
+                    val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                    newDate = sdf.format(convertedDate)
+                    if(sessionManager.getRule()=="kadin"){
+                        suratViewModel.getSuratKadinbyTgl(jenis!!, newDate!!)
+                    }
+                    else{
+                        suratViewModel.getSuratDPbyTgl(jenis!!,sessionManager.getRule(), sessionManager.getBidang(), sessionManager.getSeksi(), sessionManager.getUserId(), status1!!, status2!!, newDate!!)
+                    }
+
+                }catch (e: Exception){
+                    e.printStackTrace()
+                }
+                binding.txtJudul.text = "Surat $jenis telah diproses pada tanggal $newDate"
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+        })
 
         if(jenis == "dispo balik"){
             binding.etTglCari.visibility = GONE
@@ -92,15 +153,6 @@ class SudahDiProsesFragment : Fragment() {
                 adapterSurat = SuratAdapter(it.surat, this.requireActivity())
                 binding.rvSurat.adapter = adapterSurat
                 adaSurat()
-            }
-        }
-        suratViewModel.loadZero.observe(viewLifecycleOwner){ isLoading->
-            isLoading?.let {
-                if(it){
-                    tidakAdaSurat()
-                } else{
-                    adaSurat()
-                }
             }
         }
         suratViewModel.loading.observe(viewLifecycleOwner){ isLoading->

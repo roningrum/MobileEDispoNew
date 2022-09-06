@@ -1,17 +1,21 @@
 package id.go.dinkes.mobileedisponew.ui.main.surat
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.View.GONE
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.appbar.AppBarLayout
 import id.go.dinkes.mobileedisponew.LihatFileSurat
-import id.go.dinkes.mobileedisponew.R
 import id.go.dinkes.mobileedisponew.databinding.ActivityDetailSuratBinding
 import id.go.dinkes.mobileedisponew.remote.RetrofitService
 import id.go.dinkes.mobileedisponew.repository.DispoRepository
+import id.go.dinkes.mobileedisponew.ui.main.surat.menudispo.DialogDispoBalikFragment
+import id.go.dinkes.mobileedisponew.ui.main.surat.menudispo.DialogDisposisiFragment
+import id.go.dinkes.mobileedisponew.util.DialogFragmentBerhasil
 import id.go.dinkes.mobileedisponew.util.GetDate
 import id.go.dinkes.mobileedisponew.util.SessionManager
 import id.go.dinkes.mobileedisponew.viewmodel.DispoViewModelFactory
@@ -23,6 +27,7 @@ class DetailSuratActivity : AppCompatActivity() {
     private var idSurat : String = ""
     var isShow = true
     var scrollRange = -1
+    private lateinit var  sessionManager: SessionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,13 +57,79 @@ class DetailSuratActivity : AppCompatActivity() {
         idSurat = intent.getStringExtra("id_surat")!!
         suratViewModel.getDetailSurat(idSurat)
 
-        val session = SessionManager(this)
-        if(session.getRule() == "staff"){
+        sessionManager = SessionManager(this)
+        if(sessionManager.getRule() == "staff"){
             binding.content.btnDisposisi?. visibility = GONE
+        }
+
+        binding.content.btnDisposisi?.setOnClickListener {
+            val fm = supportFragmentManager
+            val args = Bundle()
+            args.putString("id_surat", idSurat)
+            val dialogFragment = DialogDisposisiFragment()
+            dialogFragment.arguments = args
+            dialogFragment.show(fm, "Fragment Disposisi")
+        }
+
+        binding.content.btnTerimaSurat?.setOnClickListener {
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Terima Surat")
+            builder.setMessage("Apakah anda yakin untuk menerima Surat?")
+            builder.setPositiveButton("Terima Surat", DialogInterface.OnClickListener { dialog, which ->
+                terimaSurat()
+                return@OnClickListener
+            })
+            builder.setNegativeButton("Tidak"){dialog, which ->
+                dialog.dismiss()
+            }
+            val alert = builder.create()
+            alert.show()
+        }
+
+        binding.content.btnDisposisiBalik?.setOnClickListener {
+            val fm = supportFragmentManager
+            val args = Bundle()
+            args.putString("id_surat", idSurat)
+            val dialogFragment = DialogDispoBalikFragment()
+            dialogFragment.arguments = args
+            dialogFragment.show(fm, "Fragment Disposisi")
         }
 
         observeViewModel()
 
+    }
+
+    private fun terimaSurat() {
+        when (sessionManager.getRule()) {
+            "kadin" ->{
+                suratViewModel.getTerimaKadin(
+                    idSurat,
+                    sessionManager.getUserId(),
+                    sessionManager.getBidang()
+                )
+            }
+            "kabid" -> {
+                suratViewModel.getTerimaKabid(
+                    idSurat,
+                    sessionManager.getUserId(),
+                    sessionManager.getBidang()
+                )
+            }
+            "kasi" ->{
+                suratViewModel.getTerimaKasi(
+                    idSurat,
+                    sessionManager.getUserId(),
+                    sessionManager.getBidang(),
+                    sessionManager.getSeksi()
+                )
+            }
+            "staff" ->{
+                suratViewModel.getTerimaStaff(
+                    idSurat,
+                    sessionManager.getUserId(),
+                )
+            }
+        }
     }
 
     private fun observeViewModel() {
@@ -137,5 +208,26 @@ class DetailSuratActivity : AppCompatActivity() {
            }
 
        }
+        suratViewModel.loading.observe(this){
+            it?.let {
+                binding.content.progressBar?.visibility = if(it) View.VISIBLE else GONE
+            }
+        }
+        suratViewModel.successMessage.observe(this){
+            if(it.success == "1"){
+                binding.content.progressBar?.visibility = GONE
+//                Toast.makeText(this, "Sukses", Toast.LENGTH_SHORT).show()
+                showDialogBerhasil()
+            } else{
+                binding.content.progressBar?.visibility = GONE
+                Toast.makeText(this, "Gagal", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    fun showDialogBerhasil() {
+       val fm = supportFragmentManager
+        val dialogFragment = DialogFragmentBerhasil()
+        dialogFragment.show(fm, "Fragment Berhasil")
     }
 }

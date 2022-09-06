@@ -25,7 +25,7 @@
         <entry key="..\:/Users/Ota/AndroidStudioProjects/MobileEDispoNew/app/src/main/res/layout/activity_agenda_external.xml" value="0.33" />
         <entry key="..\:/Users/Ota/AndroidStudioProjects/MobileEDispoNew/app/src/main/res/layout/activity_agenda_internal.xml" value="0.25" />
         <entry key="..\:/Users/Ota/AndroidStudioProjects/MobileEDispoNew/app/src/main/res/layout/activity_agenda_pppk.xml" value="0.5" />
-        <entry key="..\:/Users/Ota/AndroidStudioProjects/MobileEDispoNew/app/src/main/res/layout/activity_cari_agenda.xml" value="0.25" />
+        <entry key="..\:/Users/Ota/AndroidStudioProjects/MobileEDispoNew/app/src/main/res/layout/activity_cari_agenda.xml" value="0.1" />
         <entry key="..\:/Users/Ota/AndroidStudioProjects/MobileEDispoNew/app/src/main/res/layout/activity_detail_surat.xml" value="0.25" />
         <entry key="..\:/Users/Ota/AndroidStudioProjects/MobileEDispoNew/app/src/main/res/layout/activity_history_check_up.xml" value="0.1675929884566054" />
         <entry key="..\:/Users/Ota/AndroidStudioProjects/MobileEDispoNew/app/src/main/res/layout/activity_lihat_file_surat.xml" value="0.15604959384352288" />
@@ -41,11 +41,12 @@
         <entry key="..\:/Users/Ota/AndroidStudioProjects/MobileEDispoNew/app/src/main/res/layout/e_dispo_manual.xml" value="0.1675929884566054" />
         <entry key="..\:/Users/Ota/AndroidStudioProjects/MobileEDispoNew/app/src/main/res/layout/e_dispo_menu.xml" value="0.33" />
         <entry key="..\:/Users/Ota/AndroidStudioProjects/MobileEDispoNew/app/src/main/res/layout/fragment_belum_di_proses.xml" value="0.1" />
+        <entry key="..\:/Users/Ota/AndroidStudioProjects/MobileEDispoNew/app/src/main/res/layout/fragment_dialog_berhasil.xml" value="0.22" />
         <entry key="..\:/Users/Ota/AndroidStudioProjects/MobileEDispoNew/app/src/main/res/layout/fragment_dialog_detail_agenda_fragement.xml" value="0.33" />
-        <entry key="..\:/Users/Ota/AndroidStudioProjects/MobileEDispoNew/app/src/main/res/layout/fragment_dialog_dispo_balik.xml" value="0.1675929884566054" />
-        <entry key="..\:/Users/Ota/AndroidStudioProjects/MobileEDispoNew/app/src/main/res/layout/fragment_dialog_disposisi.xml" value="0.1" />
+        <entry key="..\:/Users/Ota/AndroidStudioProjects/MobileEDispoNew/app/src/main/res/layout/fragment_dialog_dispo_balik.xml" value="0.33" />
+        <entry key="..\:/Users/Ota/AndroidStudioProjects/MobileEDispoNew/app/src/main/res/layout/fragment_dialog_disposisi.xml" value="0.5" />
         <entry key="..\:/Users/Ota/AndroidStudioProjects/MobileEDispoNew/app/src/main/res/layout/fragment_main.xml" value="0.1675929884566054" />
-        <entry key="..\:/Users/Ota/AndroidStudioProjects/MobileEDispoNew/app/src/main/res/layout/fragment_sudah_di_proses.xml" value="0.5" />
+        <entry key="..\:/Users/Ota/AndroidStudioProjects/MobileEDispoNew/app/src/main/res/layout/fragment_sudah_di_proses.xml" value="0.1" />
         <entry key="..\:/Users/Ota/AndroidStudioProjects/MobileEDispoNew/app/src/main/res/layout/fragment_surat_main.xml" value="0.15604959384352288" />
         <entry key="..\:/Users/Ota/AndroidStudioProjects/MobileEDispoNew/app/src/main/res/layout/item_agenda.xml" value="0.22" />
         <entry key="..\:/Users/Ota/AndroidStudioProjects/MobileEDispoNew/app/src/main/res/layout/item_agenda_hari_ini.xml" value="0.5" />

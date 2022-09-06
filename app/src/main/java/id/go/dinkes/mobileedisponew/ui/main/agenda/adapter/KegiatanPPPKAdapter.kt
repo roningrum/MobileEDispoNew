@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import id.go.dinkes.mobileedisponew.databinding.ItemAgendaPppkBinding
 import id.go.dinkes.mobileedisponew.model.KegiatanPPPK
 import id.go.dinkes.mobileedisponew.util.GetDate
-import kotlinx.coroutines.withContext
 
 @SuppressLint("SetTextI18n")
 class KegiatanPPPKAdapter(var kegiatanPPPK: List<KegiatanPPPK>): RecyclerView.Adapter<KegiatanPPPKViewHolder>() {

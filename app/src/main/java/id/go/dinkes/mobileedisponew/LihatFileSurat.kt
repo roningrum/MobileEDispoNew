@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
