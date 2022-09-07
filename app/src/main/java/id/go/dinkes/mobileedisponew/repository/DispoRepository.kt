@@ -29,6 +29,8 @@ class DispoRepository constructor(private val retrofitService: RetrofitService) 
 
     suspend fun getDispoBalik(idSurat: String, isiDp:String, rule:String, idBidang:String, idSeksi:String, userId: String): Result<SuccessMessage> = safeApiCall { retrofitService.dispoBalik(idSurat, isiDp, rule, idBidang, idSeksi, userId) }
 
+    suspend fun getPostDisposisi(idSurat: String, disposisi:String, isiDp:String, rule:String, idBidang:String, idSeksi:String, userId:String, instalasiFarmasi:String) : Result<SuccessMessage>
+    = safeApiCall { retrofitService.postDisposisi(idSurat, disposisi, isiDp, rule, idBidang, idSeksi, userId, instalasiFarmasi ) }
     suspend fun getTerimaKadin(idSurat: String, userId:String, idBidang: String ):Result<SuccessMessage> = safeApiCall { retrofitService.terimaKadin(idSurat, userId, idBidang) }
     suspend fun getTerimaKabid(idSurat: String, userId:String, idBidang: String ):Result<SuccessMessage> = safeApiCall { retrofitService.terimaKabid(idSurat, userId, idBidang) }
     suspend fun getTerimaKasi(idSurat: String, userId: String, idBidang: String, seksi: String) :Result<SuccessMessage> = safeApiCall { retrofitService.terimaKasi(idSurat, userId, idBidang, seksi)}

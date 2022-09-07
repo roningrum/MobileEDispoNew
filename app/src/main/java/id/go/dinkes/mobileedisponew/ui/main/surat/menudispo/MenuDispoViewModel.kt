@@ -102,4 +102,31 @@ class MenuDispoViewModel constructor(private val repository: DispoRepository) : 
             }
         }
     }
+
+    //post dispo
+    fun getPostDispo(idSurat: String, disposisi:String, isiDp:String, rule:String, idBidang:String, idSeksi:String, userId:String, instalasiFarmasi:String){
+        viewModelScope.launch {
+            withContext(Dispatchers.IO){
+                try {
+                    val response = repository.getPostDisposisi(idSurat, disposisi, isiDp, rule, idBidang, idSeksi, userId, instalasiFarmasi)
+                    successMessage.postValue(response.data!!)
+                } catch (throwable : Throwable){
+                    when(throwable){
+                        is IOException -> {
+                            errorMessage.postValue("Jaringan Error")
+//                            loading.value = false
+                        }
+                        is HttpException -> {
+                            errorMessage.postValue("Error")
+//                            loading.value = false
+                        }
+                        else ->{
+                            errorMessage.postValue("Unknown Error")
+//                            loading.value = false
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

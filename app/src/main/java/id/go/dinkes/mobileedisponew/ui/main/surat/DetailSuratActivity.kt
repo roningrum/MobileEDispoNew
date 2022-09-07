@@ -3,6 +3,7 @@ package id.go.dinkes.mobileedisponew.ui.main.surat
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.View.GONE
 import android.widget.Toast
@@ -24,7 +25,7 @@ class DetailSuratActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailSuratBinding
     private lateinit var suratViewModel: SuratViewModel
-    private var idSurat : String = ""
+    private var idSurat : String?=""
     var isShow = true
     var scrollRange = -1
     private lateinit var  sessionManager: SessionManager
@@ -54,8 +55,11 @@ class DetailSuratActivity : AppCompatActivity() {
         val repo = DispoRepository(retrofitService)
         suratViewModel = ViewModelProvider(this, DispoViewModelFactory(repo))[SuratViewModel::class.java]
 
-        idSurat = intent.getStringExtra("id_surat")!!
-        suratViewModel.getDetailSurat(idSurat)
+        idSurat = intent.extras?.getString("id_surat")
+
+        Log.d("id", "id_surat $idSurat")
+
+        suratViewModel.getDetailSurat(idSurat!!)
 
         sessionManager = SessionManager(this)
         if(sessionManager.getRule() == "staff"){
@@ -103,21 +107,21 @@ class DetailSuratActivity : AppCompatActivity() {
         when (sessionManager.getRule()) {
             "kadin" ->{
                 suratViewModel.getTerimaKadin(
-                    idSurat,
+                    idSurat!!,
                     sessionManager.getUserId(),
                     sessionManager.getBidang()
                 )
             }
             "kabid" -> {
                 suratViewModel.getTerimaKabid(
-                    idSurat,
+                    idSurat!!,
                     sessionManager.getUserId(),
                     sessionManager.getBidang()
                 )
             }
             "kasi" ->{
                 suratViewModel.getTerimaKasi(
-                    idSurat,
+                    idSurat!!,
                     sessionManager.getUserId(),
                     sessionManager.getBidang(),
                     sessionManager.getSeksi()
@@ -125,7 +129,7 @@ class DetailSuratActivity : AppCompatActivity() {
             }
             "staff" ->{
                 suratViewModel.getTerimaStaff(
-                    idSurat,
+                    idSurat!!,
                     sessionManager.getUserId(),
                 )
             }
@@ -135,31 +139,31 @@ class DetailSuratActivity : AppCompatActivity() {
     private fun observeViewModel() {
        suratViewModel.surat.observe(this){ surat->
            //Acara
-           if(surat.surat[0].acara.isEmpty()){
+           if(surat.surat[0].acara.isNullOrEmpty()){
                binding.content.txtAcara?.visibility = GONE
            } else{
                binding.content.txtAcara?.text = surat.surat[0].acara
            }
            //Tempat
-           if(surat.surat[0].tempat.isEmpty()){
+           if(surat.surat[0].tempat.isNullOrEmpty()){
                binding.content.layoutTempat?.visibility = GONE
            } else{
                binding.content.txtTempat?.text = surat.surat[0].tempat
            }
            //No Surat
-           if(surat.surat[0].no_surat.isEmpty()){
+           if(surat.surat[0].no_surat.isNullOrEmpty()){
                binding.content.layoutNoSurat?.visibility = GONE
            } else{
                binding.content.txtNoSurat?.text = surat.surat[0].tempat
            }
            //tanggal
-           if(surat.surat[0].tanggal.isEmpty()){
+           if(surat.surat[0].tanggal.isNullOrEmpty()){
                binding.content.layoutTanggal?.visibility = GONE
            } else{
                binding.content.txtTanggalJam?.text = GetDate.formatDate(surat.surat[0].tgl_surat)
            }
            //No Agenda
-           if(surat.surat[0].no_agenda.isEmpty()){
+           if(surat.surat[0].no_agenda.isNullOrEmpty()){
                binding.content.layoutNoAgenda?.visibility = GONE
            } else{
                binding.content.txtNoAgenda?.text = surat.surat[0].no_agenda
@@ -171,14 +175,14 @@ class DetailSuratActivity : AppCompatActivity() {
            binding.content.txtHadir?.text = surat.surat[0].disposisi3
 
            //isi dp
-           if(surat.surat[0].isi_dp.isEmpty()){
+           if(surat.surat[0].isi_dp.isNullOrEmpty()){
                binding.content.layoutIsiSurat?.visibility = GONE
            } else{
                binding.content.txtIsi?.text = surat.surat[0].isi_dp
            }
 
            //isi surat
-           if(surat.surat[0].isi_surat.isEmpty()){
+           if(surat.surat[0].isi_surat.isNullOrEmpty()){
                binding.content.layoutKeterangan?.visibility = GONE
            }
            else{
@@ -194,7 +198,7 @@ class DetailSuratActivity : AppCompatActivity() {
            }
 
            //status
-           if(surat.surat[0].status.isEmpty()){
+           if(surat.surat[0].status.isNullOrEmpty()){
                binding.content.btnDisposisi?.text = "Disposisi"
            }
            else{

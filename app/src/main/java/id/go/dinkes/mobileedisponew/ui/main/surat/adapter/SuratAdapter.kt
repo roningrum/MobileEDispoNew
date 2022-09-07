@@ -2,6 +2,7 @@ package id.go.dinkes.mobileedisponew.ui.main.surat.adapter
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
@@ -21,11 +22,19 @@ class SuratAdapter (var data: List<Surat>, var context: FragmentActivity) : Recy
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: SuratAdapterVH, position: Int) {
        val surat = data[position]
-        if(surat.tgl_terima != "0000-00-00"){
+        if(surat.tgl_terima.isNullOrEmpty()){
+            holder.binding.txtTglSuratMasuk.text = " "
+        }
+        else{
             val newDate = GetDate.formatDate(surat.tgl_terima)
             holder.binding.txtTglSuratMasuk.text = "Terima : $newDate"
+
         }
-        if(surat.tgl_dp != "0000-00-00"){
+        if(surat.tgl_dp.isNullOrEmpty()){
+            holder.binding.txtTglSuratMasuk.text = " "
+
+        }
+        else{
             val newDate = GetDate.formatDate(surat.tgl_dp)
             holder.binding.txtTglDisposisi.text = "Disposisi : $newDate"
         }
@@ -34,9 +43,14 @@ class SuratAdapter (var data: List<Surat>, var context: FragmentActivity) : Recy
         holder.binding.txtAcara.text = surat.acara
         holder.binding.txtTempat.text = surat.tempat
 
-        val tglSurat = GetDate.formatDate(surat.tgl_surat)
+        if(surat.tgl_surat.isNullOrEmpty()){
+            holder.binding.txtTanggalJam.text = ""
+        }
+        else{
+            val tglSurat = GetDate.formatDate(surat.tgl_surat)
+            holder.binding.txtTanggalJam.text = tglSurat
+        }
 
-        holder.binding.txtTanggalJam.text = tglSurat
         holder.binding.txtPerihal.text = surat.perihal_surat
         holder.binding.txtBidang.text = surat.disposisi1
         holder.binding.txtSeksi.text = surat.disposisi2
@@ -45,10 +59,11 @@ class SuratAdapter (var data: List<Surat>, var context: FragmentActivity) : Recy
         holder.binding.txtIsiSurat.text = surat.isi_surat
         holder.binding.btnDetail.setOnClickListener {
             val intent = Intent(holder.itemView.context, DetailSuratActivity::class.java)
-            intent.putExtra("id_surat", surat.id_surat)
+            intent.putExtra("id_surat", surat.id)
             holder.itemView.context.startActivity(intent)
+            Log.d("id", "id_surat1 ${surat.id_surat}")
         }
-//        holder.binding.txtKeteranganDpBalik.text = surat.dp
+        holder.binding.txtKeteranganDpBalik.text = surat.keterangan_dp_balik
 
     }
 
