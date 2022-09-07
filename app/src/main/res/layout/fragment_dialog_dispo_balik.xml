@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.main.surat.menudispo.DialogDispoBalikFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/menu_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            app:cardCornerRadius="6dp"
+            app:cardElevation="5dp"
+            tools:ignore="MissingConstraints">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:indeterminate="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:gravity="center"
+                    android:text="@string/menu_disposisi_balik"
+                    android:textSize="19sp" />
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="@string/alasan_disposisi_balik"
+                    android:textColor="@color/colorAbu"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="22dp"/>
+
+
+                <EditText
+                    android:id="@+id/et_isi_disposisi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/border_edittext_round"
+                    android:fontFamily="@font/roboto_medium"
+                    android:inputType="textMultiLine"
+                    android:minHeight="48dp"
+                    android:padding="8dp"
+                    android:textSize="15sp"
+                    tools:ignore="SpeakableTextPresentCheck"
+                    android:importantForAutofill="no" />
+
+
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_dispo_balik"
+                    android:layout_width="200dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/btn_orange"
+                    android:text="@string/kirim_disposisi_balik"
+                    android:textColor="#fff"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:padding="10dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="30dp"/>
+
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
