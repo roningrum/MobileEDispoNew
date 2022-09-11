@@ -1,9 +1,9 @@
-package id.go.dinkes.mobileedisponew.ui.main.profile
+package id.go.dinkes.mobileedisponew.ui.main.notulen
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import id.go.dinkes.mobileedisponew.model.UserDetail
+import id.go.dinkes.mobileedisponew.model.ItemNotulenResponse
 import id.go.dinkes.mobileedisponew.repository.DispoRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -11,18 +11,19 @@ import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import java.io.IOException
 
-class ProfileViewModel constructor(private val repository: DispoRepository) : ViewModel() {
+class NotulenViewModel constructor(private val repository: DispoRepository) : ViewModel() {
     val errorMessage = MutableLiveData<String>()
-    val userDetail = MutableLiveData<UserDetail>()
+    val itemNotulen = MutableLiveData<ItemNotulenResponse>()
     val loading = MutableLiveData<Boolean>()
 
-    fun detailInfoUser(userId: String){
+    fun getNotulenList(userId:String){
+        loading.value = true
         viewModelScope.launch {
             withContext(Dispatchers.IO){
-                try {
-                    val response = repository.getUserDetail(userId)
-                    userDetail.postValue(response.data!!)
-                } catch (throwable : Throwable){
+                try{
+                    val response = repository.getNotulen(userId)
+                    itemNotulen.postValue(response.data!!)
+                } catch (throwable: Throwable){
                     when(throwable){
                         is IOException -> {
                             errorMessage.postValue("Jaringan Error")
@@ -41,14 +42,5 @@ class ProfileViewModel constructor(private val repository: DispoRepository) : Vi
             }
             loading.value = false
         }
-    }
-
-    fun editFoto(userId: String, foto:String){
-
-    }
-
-    private fun onError(message: String){
-        errorMessage.value = message
-        loading.value = false
     }
 }

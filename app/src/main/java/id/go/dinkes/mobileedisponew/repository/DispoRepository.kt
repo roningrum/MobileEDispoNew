@@ -24,6 +24,8 @@ class DispoRepository constructor(private val retrofitService: RetrofitService) 
     suspend fun getKegiatanPPPK(dari:String, sampai:String) : Result<KegiatanPPPKResponse> = safeApiCall { retrofitService.getPPPK(dari, sampai) }
     suspend fun getDetailSurat(id:String): Result<SuratResponse> = safeApiCall { retrofitService.getSuratId(id) }
 
+    suspend fun getNotulen(userId: String):Result<ItemNotulenResponse> = safeApiCall { retrofitService.getNotulen(userId) }
+
     suspend fun getItemDispo(rule: String, bidang: String, seksi: String) : Result<ItemDisposisiResponse> = safeApiCall { retrofitService.getItemDisposisi(rule, bidang, seksi) }
     suspend fun getItemEditDisposisi(idSurat: String, rule: String) : Result<ItemEditDisposisiResponse> = safeApiCall { retrofitService.getItemEditDisposisi(idSurat, rule) }
 
@@ -35,4 +37,8 @@ class DispoRepository constructor(private val retrofitService: RetrofitService) 
     suspend fun getTerimaKabid(idSurat: String, userId:String, idBidang: String ):Result<SuccessMessage> = safeApiCall { retrofitService.terimaKabid(idSurat, userId, idBidang) }
     suspend fun getTerimaKasi(idSurat: String, userId: String, idBidang: String, seksi: String) :Result<SuccessMessage> = safeApiCall { retrofitService.terimaKasi(idSurat, userId, idBidang, seksi)}
     suspend fun getTerimaStaff(idSurat: String, userId: String) :Result<SuccessMessage> = safeApiCall { retrofitService.terimaStaff(idSurat, userId)}
+
+    //edit Foto
+    suspend fun getEditFoto(userId:String, foto:String): Result<SuccessMessage> = safeApiCall { retrofitService.editFoto(userId, foto) }
+    suspend fun getEditProfile(userId: String, nama:String, nik:String, telp:String, tglLahir: String, jenisKelamin:String): Result<SuccessMessage> = safeApiCall { retrofitService.editProfile(userId, nama, nik, telp, tglLahir,  jenisKelamin) }
 }

@@ -31,7 +31,7 @@ class SuratAdapter (var data: List<Surat>, var context: FragmentActivity) : Recy
 
         }
         if(surat.tgl_dp.isNullOrEmpty()){
-            holder.binding.txtTglSuratMasuk.text = " "
+            holder.binding.txtTglDisposisi.text = " "
 
         }
         else{

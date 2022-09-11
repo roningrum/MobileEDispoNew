@@ -113,6 +113,13 @@ interface RetrofitService {
         @Query("sampai") sampai: String
     ): Response<KegiatanPPPKResponse>
 
+    //get Notulen
+    @GET("notulen")
+    suspend fun getNotulen(
+        @Query("user_id") userId: String
+    ): Response<ItemNotulenResponse>
+
+
     //get Item Disposisi Rule Kadin
     @GET("get_item_disposisi")
     suspend fun getItemDisposisi(
@@ -207,7 +214,7 @@ interface RetrofitService {
     //insert register
     @FormUrlEncoded
     @POST("edit_foto")
-    suspend fun edit_foto(
+    suspend fun editFoto(
         @Field("user_id") user_id: String,
         @Field("foto") foto: String
     ): Response<SuccessMessage>

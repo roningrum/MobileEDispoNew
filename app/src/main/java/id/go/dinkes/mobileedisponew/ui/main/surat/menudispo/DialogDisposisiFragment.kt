@@ -57,6 +57,7 @@ class DialogDisposisiFragment : DialogFragment() {
                 }else{
                     dispoSurat("")
                 }
+//                observeViewModel()
             }
         }
 
@@ -72,10 +73,9 @@ class DialogDisposisiFragment : DialogFragment() {
 
     }
 
-    override fun onResume() {
-        menuViewModel.getItemDisposisi(sessionManager.getRule(), sessionManager.getBidang(), sessionManager.getSeksi())
-        super.onResume()
-    }
+//    override fun onResume() {
+//      super.onResume()
+//    }
 
     private fun initRecyclerViewModel() {
         binding.rvItemDisposisi.setHasFixedSize(true)
@@ -88,7 +88,7 @@ class DialogDisposisiFragment : DialogFragment() {
         if (dialog != null) {
             val width = ViewGroup.LayoutParams.MATCH_PARENT
             val height = ViewGroup.LayoutParams.WRAP_CONTENT
-            dialog.getWindow()?.setLayout(width, height)
+            dialog.window?.setLayout(width, height)
         }
     }
 
@@ -119,11 +119,10 @@ class DialogDisposisiFragment : DialogFragment() {
             val message = it.message
 
             if(success == "1"){
-                hideProgressbar()
+                dismiss()
                 (activity as DetailSuratActivity).showDialogBerhasil()
             } else{
-                hideProgressbar()
-                Toast.makeText(this.context, message, Toast.LENGTH_SHORT).show()
+                Toast.makeText(this.context, "Silakan Coba Lagi", Toast.LENGTH_SHORT).show()
             }
         }
 

@@ -191,4 +191,7 @@
     <string name="mobile_e_disposisi">Mobile E-Disposisi</string>
     <string name="kirim_disposisi_balik">Kirim Disposisi Balik</string>
     <string name="berhasil">Berhasil</string>
+    <string name="tidak_ada_notulen">Tidak ada Notulen</string>
+    <string name="notulen">Notulen</string>
+    <string name="lihat_notulen">Lihat Notulen</string>
 </resources>

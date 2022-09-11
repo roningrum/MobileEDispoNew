@@ -45,6 +45,7 @@ class MenuDispoViewModel constructor(private val repository: DispoRepository) : 
                     }
                 }
             }
+            loading.value = false
         }
     }
 
@@ -73,6 +74,7 @@ class MenuDispoViewModel constructor(private val repository: DispoRepository) : 
                     }
                 }
             }
+            loading.value = false
         }
     }
 
@@ -99,6 +101,7 @@ class MenuDispoViewModel constructor(private val repository: DispoRepository) : 
                         }
                     }
                 }
+                loading.value = false
             }
         }
     }

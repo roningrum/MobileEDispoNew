@@ -21,6 +21,7 @@ import id.go.dinkes.mobileedisponew.ui.main.agenda.AgendaExternal
 import id.go.dinkes.mobileedisponew.ui.main.agenda.AgendaInternal
 import id.go.dinkes.mobileedisponew.ui.main.agenda.AgendaPPPK
 import id.go.dinkes.mobileedisponew.ui.main.home.adapter.TodayAgenda
+import id.go.dinkes.mobileedisponew.ui.main.notulen.NotulenDispoActivity
 import id.go.dinkes.mobileedisponew.util.GetDate
 import id.go.dinkes.mobileedisponew.util.SessionManager
 import id.go.dinkes.mobileedisponew.viewmodel.DispoViewModelFactory
@@ -129,6 +130,10 @@ class MainActivity : AppCompatActivity() {
         }
         edispoLayout.btnKegiatanPpk.setOnClickListener {
             val intent = Intent(this, AgendaPPPK::class.java)
+            startActivity(intent)
+        }
+        edispoLayout.btnKegiatanNotulen.setOnClickListener {
+            val  intent = Intent(this, NotulenDispoActivity::class.java)
             startActivity(intent)
         }
     }
