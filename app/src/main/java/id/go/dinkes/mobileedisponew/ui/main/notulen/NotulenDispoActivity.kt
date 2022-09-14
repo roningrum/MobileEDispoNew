@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import id.go.dinkes.mobileedisponew.R
 import id.go.dinkes.mobileedisponew.databinding.ActivityLihatNotulenBinding
 import id.go.dinkes.mobileedisponew.databinding.ActivityNotulenDispoBinding
+import id.go.dinkes.mobileedisponew.remote.NetworkRepo
 import id.go.dinkes.mobileedisponew.remote.RetrofitService
 import id.go.dinkes.mobileedisponew.repository.DispoRepository
 import id.go.dinkes.mobileedisponew.ui.main.home.HomeViewModel
@@ -29,7 +30,7 @@ class NotulenDispoActivity : AppCompatActivity() {
 
         val userId = SessionManager(this).getUserId()
 
-        val retrofitService = RetrofitService.getInstance()
+        val retrofitService = NetworkRepo.getDispo()
         val repo = DispoRepository(retrofitService)
 
         notulenViewModel = ViewModelProvider(this,

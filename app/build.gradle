@@ -19,9 +19,11 @@ android {
     buildTypes {
         debug{
             buildConfigField "String", "URL_DISPO", "\"http://119.2.50.170:9095/e_dispo/index.php/service/\""
+            buildConfigField "String", "URL_AKM", "\"http://119.2.50.170:9095/akm/service/\""
         }
         release {
             buildConfigField "String", "URL_DISPO", "\"http://119.2.50.170:9095/e_dispo/index.php/service/\""
+            buildConfigField "String", "URL_AKM", "\"http://119.2.50.170:9095/akm/service/\""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }

@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.go.dinkes.mobileedisponew.databinding.ActivityAgendaInternalBinding
+import id.go.dinkes.mobileedisponew.remote.NetworkRepo
 import id.go.dinkes.mobileedisponew.remote.RetrofitService
 import id.go.dinkes.mobileedisponew.repository.DispoRepository
 import id.go.dinkes.mobileedisponew.ui.main.agenda.adapter.KegiatanInternalAdapter
@@ -38,7 +39,7 @@ class AgendaInternal : AppCompatActivity() {
         binding = ActivityAgendaInternalBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val retrofitService = RetrofitService.getInstance()
+        val retrofitService = NetworkRepo.getDispo()
         val repo = DispoRepository(retrofitService)
         viewModel = ViewModelProvider(this, DispoViewModelFactory(repo))[AgendaViewModel::class.java]
         viewModel.getBidang()

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import id.go.dinkes.mobileedisponew.R
 import id.go.dinkes.mobileedisponew.SuratMainActivity
 import id.go.dinkes.mobileedisponew.databinding.FragmentBelumDiProsesBinding
+import id.go.dinkes.mobileedisponew.remote.NetworkRepo
 import id.go.dinkes.mobileedisponew.remote.RetrofitService
 import id.go.dinkes.mobileedisponew.repository.DispoRepository
 import id.go.dinkes.mobileedisponew.ui.main.surat.adapter.SuratAdapter
@@ -32,7 +33,7 @@ class BelumDiProsesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        val retrofitService = RetrofitService.getInstance()
+        val retrofitService = NetworkRepo.getDispo()
         val repo = DispoRepository(retrofitService)
         suratViewModel = ViewModelProvider(this@BelumDiProsesFragment, DispoViewModelFactory(repo))[SuratViewModel::class.java]
         binding = FragmentBelumDiProsesBinding.inflate(inflater, container, false)

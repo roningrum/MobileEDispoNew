@@ -14,6 +14,7 @@ import id.go.dinkes.mobileedisponew.databinding.FragmentDialogDisposisiBinding
 import id.go.dinkes.mobileedisponew.databinding.ItemDisposisiBinding
 import id.go.dinkes.mobileedisponew.model.ItemDisposisi
 import id.go.dinkes.mobileedisponew.model.ItemEditDisposisi
+import id.go.dinkes.mobileedisponew.remote.NetworkRepo
 import id.go.dinkes.mobileedisponew.remote.RetrofitService
 import id.go.dinkes.mobileedisponew.repository.DispoRepository
 import id.go.dinkes.mobileedisponew.ui.main.surat.DetailSuratActivity
@@ -39,7 +40,7 @@ class DialogDisposisiFragment : DialogFragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentDialogDisposisiBinding.inflate(inflater, container, false)
-        val retrofitService = RetrofitService.getInstance()
+        val retrofitService = NetworkRepo.getDispo()
         val repo = DispoRepository(retrofitService)
         menuViewModel = ViewModelProvider(this, DispoViewModelFactory(repo))[MenuDispoViewModel::class.java]
         sessionManager = SessionManager(requireContext())

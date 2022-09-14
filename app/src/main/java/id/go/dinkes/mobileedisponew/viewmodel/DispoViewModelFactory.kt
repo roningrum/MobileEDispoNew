@@ -33,5 +33,4 @@ class DispoViewModelFactory constructor(private val repository: DispoRepository)
             throw IllegalAccessException("View Model Not Found")
         }
     }
-
 }

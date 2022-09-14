@@ -59,6 +59,17 @@ class SessionManager(context: Context) {
         return preferences.getString("seksi", "")!!
     }
 
+    fun setNIK(nik:String){
+        editor.putString("nik", nik)
+        editor.commit()
+    }
+
+    fun getNIK(): String{
+        return preferences.getString("nik", "")!!
+    }
+
+
+
     fun logout(){
         editor.clear()
         editor.commit()

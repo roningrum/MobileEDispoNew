@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.go.dinkes.mobileedisponew.databinding.ActivityCariAgendaBinding
+import id.go.dinkes.mobileedisponew.remote.NetworkRepo
 import id.go.dinkes.mobileedisponew.remote.RetrofitService
 import id.go.dinkes.mobileedisponew.repository.DispoRepository
 import id.go.dinkes.mobileedisponew.ui.main.home.adapter.TodayAgenda
@@ -33,7 +34,7 @@ class CariAgenda : AppCompatActivity() {
         binding = ActivityCariAgendaBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val retrofitService = RetrofitService.getInstance()
+        val retrofitService = NetworkRepo.getDispo()
         val repo = DispoRepository(retrofitService)
         val search =  binding.etTglCari
         homeViewModel = ViewModelProvider(this, DispoViewModelFactory(repo)).get(HomeViewModel::class.java)

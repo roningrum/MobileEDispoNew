@@ -6,8 +6,10 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
 import id.go.dinkes.mobileedisponew.databinding.ActivityLoginBinding
+import id.go.dinkes.mobileedisponew.remote.NetworkRepo
 import id.go.dinkes.mobileedisponew.remote.RetrofitService
 import id.go.dinkes.mobileedisponew.repository.DispoRepository
 import id.go.dinkes.mobileedisponew.ui.main.home.MainActivity
@@ -26,11 +28,13 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val retrofitService = RetrofitService.getInstance()
+        val retrofitService = NetworkRepo.getDispo()
         val repo = DispoRepository(retrofitService)
 
         sessionManager = SessionManager(this)
         viewModel = ViewModelProvider(this,DispoViewModelFactory(repo)).get(LoginViewModel::class.java)
+
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         binding.btnMasuk.setOnClickListener {
             username = binding.etUsername.text.toString()
@@ -63,6 +67,7 @@ class LoginActivity : AppCompatActivity() {
                 sessionManager.setBidang(it.login[0].bidang)
                 sessionManager.setRule(it.login[0].rule)
                 sessionManager.setSeksi(it.login[0].seksi)
+                sessionManager.setNIK(it.login[0].nik)
 //                Log.d("userid", "id ${SessionManager(this).getUserId()}")
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)

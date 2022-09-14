@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import id.go.dinkes.mobileedisponew.R
 import id.go.dinkes.mobileedisponew.databinding.ActivityProfileBinding
 import id.go.dinkes.mobileedisponew.databinding.FragmentDialogDispoBalikBinding
+import id.go.dinkes.mobileedisponew.remote.NetworkRepo
 import id.go.dinkes.mobileedisponew.remote.RetrofitService
 import id.go.dinkes.mobileedisponew.repository.DispoRepository
 import id.go.dinkes.mobileedisponew.ui.main.surat.DetailSuratActivity
@@ -32,7 +33,7 @@ class DialogDispoBalikFragment : DialogFragment() {
     ): View{
         // Inflate the layout for this fragment
         binding = FragmentDialogDispoBalikBinding.inflate(inflater, container, false)
-        val retrofitService = RetrofitService.getInstance()
+        val retrofitService = NetworkRepo.getDispo()
         val repo = DispoRepository(retrofitService)
         menuViewModel = ViewModelProvider(this@DialogDispoBalikFragment, DispoViewModelFactory(repo))[MenuDispoViewModel::class.java]
         session = SessionManager(requireContext())

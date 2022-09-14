@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import id.go.dinkes.mobileedisponew.LihatFileSurat
 import id.go.dinkes.mobileedisponew.databinding.ActivityDetailSuratBinding
+import id.go.dinkes.mobileedisponew.remote.NetworkRepo
 import id.go.dinkes.mobileedisponew.remote.RetrofitService
 import id.go.dinkes.mobileedisponew.repository.DispoRepository
 import id.go.dinkes.mobileedisponew.ui.main.surat.menudispo.DialogDispoBalikFragment
@@ -51,7 +52,7 @@ class DetailSuratActivity : AppCompatActivity() {
             }
         }
 
-        val retrofitService = RetrofitService.getInstance()
+        val retrofitService = NetworkRepo.getDispo()
         val repo = DispoRepository(retrofitService)
         suratViewModel = ViewModelProvider(this, DispoViewModelFactory(repo))[SuratViewModel::class.java]
 

@@ -15,6 +15,7 @@ import id.go.dinkes.mobileedisponew.R
 import id.go.dinkes.mobileedisponew.SuratMainActivity
 import id.go.dinkes.mobileedisponew.databinding.ActivityMainBinding
 import id.go.dinkes.mobileedisponew.databinding.EDispoMenuBinding
+import id.go.dinkes.mobileedisponew.remote.NetworkRepo
 import id.go.dinkes.mobileedisponew.remote.RetrofitService
 import id.go.dinkes.mobileedisponew.repository.DispoRepository
 import id.go.dinkes.mobileedisponew.ui.main.agenda.AgendaExternal
@@ -38,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         val userId = SessionManager(this).getUserId()
 
-        val retrofitService = RetrofitService.getInstance()
+        val retrofitService = NetworkRepo.getDispo()
         val repo = DispoRepository(retrofitService)
         val todayDate = GetDate.getTodayDate()
 

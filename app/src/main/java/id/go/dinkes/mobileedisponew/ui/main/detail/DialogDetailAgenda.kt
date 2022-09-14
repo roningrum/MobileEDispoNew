@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import id.go.dinkes.mobileedisponew.LihatFileSurat
 import id.go.dinkes.mobileedisponew.databinding.FragmentDialogDetailAgendaFragementBinding
+import id.go.dinkes.mobileedisponew.remote.NetworkRepo
 import id.go.dinkes.mobileedisponew.remote.RetrofitService
 import id.go.dinkes.mobileedisponew.repository.DispoRepository
 import id.go.dinkes.mobileedisponew.ui.main.home.HomeViewModel
@@ -28,7 +29,7 @@ class DialogDetailAgenda : BottomSheetDialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val retrofitService = RetrofitService.getInstance()
+        val retrofitService = NetworkRepo.getDispo()
         val repo = DispoRepository(retrofitService)
         viewModel = ViewModelProvider(this@DialogDetailAgenda, DispoViewModelFactory(repo))[HomeViewModel::class.java]
         binding = FragmentDialogDetailAgendaFragementBinding.inflate(inflater, container, false)

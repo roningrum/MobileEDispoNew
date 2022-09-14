@@ -3,6 +3,7 @@ package id.go.dinkes.mobileedisponew.remote
 import com.google.gson.GsonBuilder
 import id.go.dinkes.mobileedisponew.BuildConfig
 import id.go.dinkes.mobileedisponew.model.*
+import id.go.dinkes.mobileedisponew.model.akm.DataCheckUpResponse
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -219,26 +220,21 @@ interface RetrofitService {
         @Field("foto") foto: String
     ): Response<SuccessMessage>
 
-    companion object{
-        var retrofitService: RetrofitService? = null
-        var client = OkHttpClient.Builder()
-            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-            .connectTimeout(30, TimeUnit.SECONDS)
-            .readTimeout(30, TimeUnit.SECONDS)
-            .writeTimeout(30, TimeUnit.SECONDS)
-            .build()
-        //retrofit instance service
-        fun getInstance():RetrofitService{
-            if(retrofitService == null){
-                val gson = GsonBuilder().setLenient().create()
-                val retrofit = Retrofit.Builder()
-                    .addConverterFactory(GsonConverterFactory.create(gson))
-                    .baseUrl(BuildConfig.URL_DISPO)
-                    .client(client)
-                    .build()
-                retrofitService = retrofit.create(RetrofitService::class.java)
-            }
-            return  retrofitService!!
-        }
-    }
+    //AKM
+    @GET("show_data_checkup_sekarang_user")
+    suspend fun getDataCheckUpAkhir(
+        @Query("nik") nik: String
+    ): Response<DataCheckUpResponse>
+
+    @GET("show_history_user_berat_badan")
+    suspend fun getHistoryBerat(  @Query("nik") nik: String
+    ): Response<DataCheckUpResponse>
+
+    @GET("show_history_user_tinggi_badan")
+    suspend fun getHistoryTinggi(  @Query("nik") nik: String
+    ): Response<DataCheckUpResponse>
+
+    @GET("show_history_user_tensi")
+    suspend fun getHistoryTensi(  @Query("nik") nik: String
+    ): Response<DataCheckUpResponse>
 }
