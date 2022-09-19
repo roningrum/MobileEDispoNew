@@ -56,7 +56,7 @@
             android:name=".LihatFileSurat"
             android:exported="false" />
         <activity
-            android:name=".HistoryCheckUpActivity"
+            android:name=".ui.main.profile.HistoryCheckUpActivity"
             android:exported="false" />
         <activity
             android:name=".ui.main.surat.DetailSuratActivity"

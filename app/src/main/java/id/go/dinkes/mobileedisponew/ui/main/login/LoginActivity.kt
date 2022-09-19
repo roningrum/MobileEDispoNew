@@ -68,6 +68,7 @@ class LoginActivity : AppCompatActivity() {
                 sessionManager.setRule(it.login[0].rule)
                 sessionManager.setSeksi(it.login[0].seksi)
                 sessionManager.setNIK(it.login[0].nik)
+                sessionManager.setToken(it.login[0].token)
 //                Log.d("userid", "id ${SessionManager(this).getUserId()}")
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)

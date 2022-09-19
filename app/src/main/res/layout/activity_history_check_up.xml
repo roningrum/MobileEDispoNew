@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HistoryCheckUpActivity">
+    tools:context=".ui.main.profile.HistoryCheckUpActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -33,6 +33,15 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/Rv_history"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:paddingTop="1dp"
+            android:scrollbars="vertical"
+            android:layout_marginTop="10dp"/>
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

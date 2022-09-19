@@ -153,4 +153,10 @@ class DispoRepository constructor(private val retrofitService: RetrofitService) 
         jenisKelamin: String
     ): Result<SuccessMessage> =
         safeApiCall { retrofitService.editProfile(userId, nama, nik, telp, tglLahir, jenisKelamin) }
+
+    //logout
+    suspend fun getLogout(
+        userId: String,
+        token: String
+    ): Result<SuccessMessage> = safeApiCall { retrofitService.edit_token(userId, token) }
 }

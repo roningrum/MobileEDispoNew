@@ -41,4 +41,82 @@ class AkmViewModel constructor(private val repository:AKMRepository) : ViewModel
             }
         }
     }
+
+    fun getHistoryTinggi(nik:String){
+        viewModelScope.launch {
+            withContext(Dispatchers.IO){
+                try{
+                    val response = repository.getCheckupTinggi(nik)
+                    dataCheckUp.postValue(response.data!!)
+                } catch (throwable: Throwable){
+                    when(throwable){
+                        is IOException -> {
+                            errorMessage.postValue("Jaringan Error")
+//                            loading.value = false
+                        }
+                        is HttpException -> {
+                            errorMessage.postValue("Error")
+//                            loading.value = false
+                        }
+                        else ->{
+                            errorMessage.postValue("Unknown Error")
+//                            loading.value = false
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    fun getHistoryBeratBadan(nik:String){
+        viewModelScope.launch {
+            withContext(Dispatchers.IO){
+                try{
+                    val response = repository.getCheckupBB(nik)
+                    dataCheckUp.postValue(response.data!!)
+                } catch (throwable: Throwable){
+                    when(throwable){
+                        is IOException -> {
+                            errorMessage.postValue("Jaringan Error")
+//                            loading.value = false
+                        }
+                        is HttpException -> {
+                            errorMessage.postValue("Error")
+//                            loading.value = false
+                        }
+                        else ->{
+                            errorMessage.postValue("Unknown Error")
+//                            loading.value = false
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    fun getHistoryTensi(nik:String){
+        viewModelScope.launch {
+            withContext(Dispatchers.IO){
+                try{
+                    val response = repository.getCheckupTensi(nik)
+                    dataCheckUp.postValue(response.data!!)
+                } catch (throwable: Throwable){
+                    when(throwable){
+                        is IOException -> {
+                            errorMessage.postValue("Jaringan Error")
+//                            loading.value = false
+                        }
+                        is HttpException -> {
+                            errorMessage.postValue("Error")
+//                            loading.value = false
+                        }
+                        else ->{
+                            errorMessage.postValue("Unknown Error")
+//                            loading.value = false
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

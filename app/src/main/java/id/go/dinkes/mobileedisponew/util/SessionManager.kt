@@ -68,7 +68,14 @@ class SessionManager(context: Context) {
         return preferences.getString("nik", "")!!
     }
 
+    fun setToken(token:String){
+        editor.putString("token", token)
+        editor.commit()
+    }
 
+    fun getToken(): String{
+        return preferences.getString("token", "")!!
+    }
 
     fun logout(){
         editor.clear()

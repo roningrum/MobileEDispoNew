@@ -195,7 +195,7 @@ interface RetrofitService {
         @Field("id_surat") id_surat: String?,
         @Field("isi_dp") isi_dp: String?,
         @Field("rule") rule: String?,
-        @Field("id_bidang") id_bidang: String?,
+        @Field( "id_bidang") id_bidang: String?,
         @Field("id_seksi") id_seksi: String?,
         @Field("user_id") user_id: String?
     ): Response<SuccessMessage>
@@ -218,6 +218,14 @@ interface RetrofitService {
     suspend fun editFoto(
         @Field("user_id") user_id: String,
         @Field("foto") foto: String
+    ): Response<SuccessMessage>
+
+    //logout
+    @FormUrlEncoded
+    @POST("edit_token")
+    suspend fun edit_token(
+        @Field("user_id") user_id: String?,
+        @Field("token") token: String?
     ): Response<SuccessMessage>
 
     //AKM

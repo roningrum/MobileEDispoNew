@@ -6,17 +6,20 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.squareup.picasso.Picasso
 import id.go.dinkes.mobileedisponew.databinding.ActivityProfileBinding
+import id.go.dinkes.mobileedisponew.model.Login
 import id.go.dinkes.mobileedisponew.remote.NetworkRepo
 import id.go.dinkes.mobileedisponew.remote.RetrofitService
 import id.go.dinkes.mobileedisponew.repository.AKMRepository
 import id.go.dinkes.mobileedisponew.repository.DispoRepository
 import id.go.dinkes.mobileedisponew.ui.main.login.LoginActivity
 import id.go.dinkes.mobileedisponew.ui.main.profile.AkmViewModel
+import id.go.dinkes.mobileedisponew.ui.main.profile.HistoryCheckUpActivity
 import id.go.dinkes.mobileedisponew.ui.main.profile.ProfileViewModel
 import id.go.dinkes.mobileedisponew.util.GetDate
 import id.go.dinkes.mobileedisponew.util.SessionManager
@@ -27,6 +30,8 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProfileBinding
     private lateinit var viewModel : ProfileViewModel
     private lateinit var akmViewModel: AkmViewModel
+    private lateinit var nik: String
+    private lateinit var sessionManager: SessionManager
 
     var urlPhoto : String? = null
 
@@ -40,13 +45,15 @@ class ProfileActivity : AppCompatActivity() {
 
         val repo = DispoRepository(retrofitService)
         val repoAkm = AKMRepository(akmService)
-        val sessionManager = SessionManager(this)
+        sessionManager = SessionManager(this)
+
+        nik = sessionManager.getNIK()
 
         viewModel = ViewModelProvider(this, DispoViewModelFactory(repo))[ProfileViewModel::class.java]
         akmViewModel = ViewModelProvider(this, AKMViewModelFactory(repoAkm))[AkmViewModel::class.java]
 
         viewModel.detailInfoUser(sessionManager.getUserId())
-        akmViewModel.getDataCheckup(sessionManager.getNIK())
+        akmViewModel.getDataCheckup(nik)
 
         Log.d("test", "${akmViewModel.getDataCheckup(sessionManager.getNIK())}")
 
@@ -64,10 +71,25 @@ class ProfileActivity : AppCompatActivity() {
         )
 
         binding.btnLogout.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
+            viewModel.logout(sessionManager.getUserId(), sessionManager.getToken())
+//            sessionManager.logout()
+        }
+
+        binding.lihatRiwayatBb.setOnClickListener{
+            val intent = Intent(this, HistoryCheckUpActivity::class.java)
+            intent.putExtra("kategori", "berat_badan")
             startActivity(intent)
-            sessionManager.logout()
-            finish()
+        }
+        binding.lihatRiwayatTinggi.setOnClickListener {
+            val intent = Intent(this, HistoryCheckUpActivity::class.java)
+            intent.putExtra("kategori", "tinggi")
+            startActivity(intent)
+        }
+
+        binding.lihatRiwayatTensi.setOnClickListener {
+            val intent = Intent(this, HistoryCheckUpActivity::class.java)
+            intent.putExtra("kategori", "tensi")
+            startActivity(intent)
         }
     }
 
@@ -121,6 +143,20 @@ class ProfileActivity : AppCompatActivity() {
                 binding.txtTglAkhirTensi.text = "${GetDate.formatDateWithTime(checkUp.data_checkup[0].tgl_cek_tensi)} WIB"
 
                 hitungBMI(checkUp.data_checkup[0].berat, checkUp.data_checkup[0].tinggi)
+            }
+        }
+
+        viewModel.successMessage.observe(this){
+            val success = it.success
+            val message = it.message
+
+            if(success == "1"){
+                sessionManager.logout()
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+                finishAffinity()
+            } else{
+                Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
             }
         }
     }
